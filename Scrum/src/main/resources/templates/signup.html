@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="fixed">
+
+	<head th:include="layout :: copy3"></head>
+	
+	<body>
+		<!-- start: page -->
+		<section class="body-sign">
+			<div class="center-sign">
+				<a href="/" class="logo pull-left">
+					<img src="assets/images/logo.png" height="54" alt="Porto Admin" />
+				</a>
+
+				<div class="panel panel-sign">
+					<div class="panel-title-sign mt-xl text-right">
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign Up</h2>
+					</div>
+					<div class="panel-body">
+						<form th:action="@{/saveUser}" method="post">
+							<div class="form-group mb-lg">
+								<label>First Name</label>
+								<input name="prenom" type="text"  class="form-control input-lg" autocomplete="off" />
+								<span style="color: red" th:errors="${user.prenom}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Last Name</label>
+								<input name="nom" type="text"  class="form-control input-lg"  autocomplete="off"/>
+								<span style="color: red" th:errors="${user.nom}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Biographical Info</label>
+								<textarea class="form-control" rows="3" name="titre" autocomplete="off"></textarea>
+								<span style="color: red" th:errors="${user.titre}"></span>
+							</div>
+
+							<div class="form-group mb-lg">
+								<label>E-mail Address</label>
+								<input name="email" type="email"  class="form-control input-lg" autocomplete="off" />
+								<span style="color: red" th:errors="${user.email}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Address</label>
+								<input name="adresse" type="text"  class="form-control input-lg" autocomplete="off" />
+								<span style="color: red" th:errors="${user.adresse}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Phone</label>
+								<input name="tel" type="text"  class="form-control input-lg" autocomplete="off" />
+								<span style="color: red" th:errors="${user.tel}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Birth Date</label>
+								<input name="dateNaissance" type="date"  class="form-control input-lg" />
+								<span style="color: red" th:errors="${user.dateNaissance}"></span>
+							</div>
+							<div class="form-group mb-lg">
+								<label>Username</label>
+								<input name="username" type="text"  class="form-control input-lg" autocomplete="off" />
+								<span style="color: red" th:errors="${user.username}"></span>
+							</div>
+							
+							<div class="form-group mb-lg">
+								<label>Password</label>
+								<input name="password" type="password"  class="form-control input-lg" />
+								<span style="color: red" th:errors="${user.password}"></span>
+							</div>
+							
+								<input name="status" type="hidden"  value="1" />
+								
+								<div class="form-group mb-lg">
+									<label>Company</label>
+									<input name="company" type="text"  class="form-control input-lg" autocomplete="off" />
+									<span style="color: red" th:errors="${user.company}"></span>
+								</div>
+			
+								<div class="form-group mb-lg">
+									<label>Role</label>
+									<select name="role"  class="form-control input-lg" >
+										  <option value="productOwner">productOwner</option>
+										  <option value="scrumMaster">scrumMaster</option>
+										  <option value="client">client</option>
+										  <option value="teamMember">teamMember</option>
+									</select>
+								</div>
+
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="checkbox-custom checkbox-default">
+										<input id="AgreeTerms" name="agreeterms" type="checkbox"/>
+										<label for="AgreeTerms">I agree with <a href="#">terms of use</a></label>
+									</div>
+								</div>
+								<div class="col-sm-4 text-right">
+									<button type="submit" class="btn btn-primary hidden-xs">Sign Up</button>
+									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
+								</div>
+							</div>
+
+							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
+								<span>or</span>
+							</span>
+
+						
+
+							<p class="text-center">Already have an account? <a th:href="@{/signin}">Sign In!</a>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<!-- end: page -->
+
+			<div th:include="layout :: copy4"></div>
+
+	</body>
+</html>

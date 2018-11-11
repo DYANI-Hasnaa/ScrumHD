@@ -1,0 +1,101 @@
+<!doctype html>
+<html class="fixed">
+
+	<head th:include="layout :: copy3"></head>
+	
+	<body>
+	
+				<div th:replace="layout :: copy1"></div>
+				<div th:replace="layout :: copy2"></div>
+					
+				<section class="content-body">
+
+				<header class="page-header">
+					<h2>Create Sprint</h2>
+	
+					<div class="right-wrapper pull-right">
+						<ol class="breadcrumbs">
+							<li></li>
+							<li><span>Create Sprint</span></li>
+						</ol>
+	
+						<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					</div>
+				</header>
+
+			<div class="row" style="margin-left: 14%; margin-top: 10%; width: 100%;">
+				<div class="col-md-8 col-lg-9">
+
+				
+						
+							<form th:action="@{/CreateNewSprint}" id="summary-form" class="form-horizontal"  method="post">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+
+										<h2 class="panel-title">Sprint</h2>
+										
+									</header>
+									<div class="panel-body">
+										<div class="validation-message">
+											<ul></ul>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Sprint Name <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="namesprint" class="form-control"  placeholder="name" required/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Sprint Description <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<textarea rows="5" name="descriptionsprint" class="form-control"  placeholder="description" required></textarea>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"> Requested On  <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="date" name="requestedOnsprint" class="form-control" placeholder="requestedOn" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Status <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<select name="statussprint" class="form-control" placeholder="status">
+													  <option value="To Do">To Do</option>
+													  <option value="Is Doing">Is Doing</option>
+													  <option value="Done">Done</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									
+								
+									
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-primary" name="btns1">Create and Continue</button>
+												<button class="btn btn-primary" name="btns2">Create</button>
+												<button type="reset" class="btn btn-default">Reset</button>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+						
+							
+							
+				</div>
+				</div>
+				</section>
+				
+			
+				<div th:include="layout :: copy4"></div>
+			
+	</body>
+</html>
