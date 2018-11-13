@@ -11,12 +11,12 @@
 				<section class="content-body">
 
 				<header class="page-header">
-					<h2>Create Sprint</h2>
+					<h2>Create Project & Backlog</h2>
 	
 					<div class="right-wrapper pull-right">
 						<ol class="breadcrumbs">
 							<li></li>
-							<li><span>Create Sprint</span></li>
+							<li><span>Create Project & Backlog</span></li>
 						</ol>
 	
 						<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -28,7 +28,7 @@
 
 				
 						
-							<form th:action="@{/CreateNewSprint}" id="summary-form" class="form-horizontal"  method="post">
+							<form th:action="@{/CreateBacklog}" id="summary-form" class="form-horizontal"  method="post">
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -36,7 +36,7 @@
 											<a href="#" class="fa fa-times"></a>
 										</div>
 
-										<h2 class="panel-title">Sprint</h2>
+										<h2 class="panel-title">Project and Product Backlog</h2>
 										
 									</header>
 									<div class="panel-body">
@@ -44,42 +44,40 @@
 											<ul></ul>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Sprint Name <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Project Name <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="text" name="namesprint" class="form-control"  placeholder="name" required/>
+												<input type="text" name="projectname" class="form-control"  placeholder="project name" required/>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Sprint Description <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Backlog Name <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<textarea rows="5" name="descriptionsprint" class="form-control"  placeholder="description" required></textarea>
+												<input type="text" name="backlogname" class="form-control"  placeholder="backlog name" required/>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label"> Requested On  <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Creation Date  <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<input type="date" name="requestedOnsprint" class="form-control" placeholder="requestedOn" />
+												<input type="date" name="datecreation" class="form-control" placeholder="date creation" />
 											</div>
 										</div>
-										
 										<div class="form-group">
-											<label class="col-sm-3 control-label">Status <span class="required">*</span></label>
+											<label class="col-sm-3 control-label">Backlog Description <span class="required">*</span></label>
 											<div class="col-sm-9">
-												<select name="statussprint" class="form-control" placeholder="status">
-													  <option value="To Do">To Do</option>
-													  <option value="Is Doing">Is Doing</option>
-													  <option value="Done">Done</option>
-												</select>
+												<textarea name="backlogdescription" rows="5" class="form-control" placeholder="backlog description" required></textarea>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Sprint Duration <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="number"  name="sprintduration"  class="form-control" placeholder="sprint duration" required/>
 											</div>
 										</div>
 									</div>
-									
-									
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-primary" name="btns1">Create and Continue</button>
-												<button class="btn btn-primary" name="btns2">Create</button>
+												<button class="btn btn-primary">Create</button>
 												<button type="reset" class="btn btn-default">Reset</button>
 											</div>
 										</div>

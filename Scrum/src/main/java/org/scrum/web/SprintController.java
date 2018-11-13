@@ -34,6 +34,7 @@ public class SprintController {
 	private ItemRepository it;
 	
 	
+	
 	public void projects(Model model) {
 		List<backlog> backlogs=br.findAll();
 	    model.addAttribute("listBacklogs", backlogs);
@@ -66,7 +67,7 @@ public class SprintController {
 
 	
 	@RequestMapping(value="/CreateNewSprint", params = "btns2", method=RequestMethod.POST)
-	public String CreateNewSprint1(Model model, sprint sprint, BindingResult bindingResult) {
+	public String CreateNewSprint1(Model model,Model modell, sprint sprint, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
@@ -75,6 +76,46 @@ public class SprintController {
 		
 		sr.save(sprint);
 
-		return "SprintBoard";
+		//this.items(modell);
+		
+		//return "SprintBoard";
+		
+		this.sprints(modell);
+		
+		return "AllSprints";
 	}
+	
+	public void items(Model model) {
+		List<Item> items=it.findAll();
+	    model.addAttribute("listItems", items);
+	}
+	
+	
+	public void sprints(Model model) {
+		
+		List<sprint> sprints=sr.findAll();
+	    model.addAttribute("listSprints", sprints);    
+	    
+	}
+	
+	
+
+	@RequestMapping(value="/sprintBoard", method=RequestMethod.GET)
+	public String sprintBoard(Model model,Model modell,String namesprint) {
+		
+		this.projects(model);
+		
+		sprint s=sr.FindBySprintName(namesprint);
+		
+		model.addAttribute("sprint",s);
+		
+		System.out.println(s.getNamesprint());
+		
+		this.items(modell);
+		
+		return "SprintBoard";
+		
+	}
+	
+	
 }

@@ -93,5 +93,8 @@ public class ItemController {
 		List<Item> items=ir.findAll();
 	    model.addAttribute("listItems", items);
 	}
+	
+	
+
 
 }

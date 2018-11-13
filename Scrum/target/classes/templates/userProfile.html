@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3">
+</head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
+		<section class="content-body">
+
+			<header class="page-header">
+				<h2>User Profile</h2>
+
+				<div class="right-wrapper pull-right">
+					<ol class="breadcrumbs">
+						<li></li>
+						<li><span>User Profile</span></li>
+					</ol>
+
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+				</div>
+			</header>
+
+			<div class="row">
+				<div class="col-md-4 col-lg-3">
+
+					<section class="panel">
+						<div class="panel-body">
+							<div class="thumb-info mb-md">
+								<img th:src="@{assets/images/!logged-user.jpg}"
+									class="rounded img-responsive">
+								<div class="thumb-info-title">
+								
+									<span class="thumb-info-inner" th:text="${user.username}"></span><span class="thumb-info-type" th:text="${user.role}"></span>
+								
+								</div>
+							</div>
+
+							<hr class="dotted short">
+
+							<h6 class="text-muted">About</h6>
+							<p>
+								<span th:text="${user.titre}" />
+							</p>
+
+
+							<hr class="dotted short">
+
+							<div class="social-icons-list">
+								<a rel="tooltip" data-placement="bottom" target="_blank"
+									href="http://www.facebook.com" data-original-title="Facebook"><i
+									class="fa fa-facebook"></i><span>Facebook</span></a> <a
+									rel="tooltip" data-placement="bottom"
+									href="http://www.twitter.com" data-original-title="Twitter"><i
+									class="fa fa-twitter"></i><span>Twitter</span></a> <a rel="tooltip"
+									data-placement="bottom" href="http://www.linkedin.com"
+									data-original-title="Linkedin"><i class="fa fa-linkedin"></i><span>Linkedin</span></a>
+							</div>
+
+						</div>
+					</section>
+
+				</div>
+				<div class="col-md-8 col-lg-9">
+
+					<div class="tabs">
+						<ul class="nav nav-tabs tabs-primary">
+							<li class="active"><a href="#overview" data-toggle="tab">User activity report</a></li>
+							<li><a href="#edit" data-toggle="tab">Edit</a></li>
+						</ul>
+						<div class="tab-content">
+							<div id="overview" class="tab-pane active"></div>
+							<div id="edit" class="tab-pane">
+
+								<form th:action="@{/saveEdit}" method="post" class="form-horizontal">
+									<h4 class="mb-xlg">Personal Information</h4>
+									<fieldset>
+
+										<input name="id" type="hidden" th:value="${user.id}" />
+										
+										<input name="username" type="hidden" th:value="${user.username}" />
+										
+										<input name="role" type="hidden" th:value="${user.role}" />
+										
+										<input name="status" type="hidden" th:value="${user.status}" />
+
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileFirstName">First Name</label>
+											<div class="col-md-8">
+												<input name="prenom" type="text" class="form-control input-lg" autocomplete="off" th:value="${user.prenom}" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileLastName">Last Name</label>
+											<div class="col-md-8">
+												<input name="nom" type="text" class="form-control input-lg" autocomplete="off" th:value="${user.nom}" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileAddress">Address</label>
+											<div class="col-md-8">
+												<input name="adresse" type="text" class="form-control input-lg" autocomplete="off" th:value="${user.adresse}" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileAddress">Birth date</label>
+											<div class="col-md-8">
+												<input name="dateNaissance" type="date" class="form-control input-lg" autocomplete="off" th:value="${user.dateNaissance}" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileAddress">Phone number</label>
+											<div class="col-md-8">
+												<input name="tel" type="text" class="form-control input-lg" autocomplete="off" th:value="${user.tel}" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileCompany">Company</label>
+											<div class="col-md-8">
+												<input name="company" type="text" class="form-control input-lg" autocomplete="off" th:value="${user.company}" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileCompany">E-mail</label>
+											<div class="col-md-8">
+												<input name="email" type="email"
+													class="form-control input-lg" autocomplete="off" th:value="${user.email}" />
+											</div>
+										</div>
+									</fieldset>
+									<hr class="dotted tall">
+									<h4 class="mb-xlg">About Yourself</h4>
+									<fieldset>
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileBio">Biographical Info</label>
+											<div class="col-md-8">
+												<textarea class="form-control" rows="3" name="titre" th:text="${user.titre}"></textarea>
+											</div>
+										</div>
+									</fieldset>
+									<hr class="dotted tall">
+									<h4 class="mb-xlg">Change Password</h4>
+									<fieldset class="mb-xl">
+										<div class="form-group">
+											<label class="col-md-3 control-label" for="profileNewPassword">New Password</label>
+											<div class="col-md-8">
+												<input type="password" class="form-control" name="password" th:value="${user.password}">
+											</div>
+										</div>
+										
+									</fieldset>
+									<div class="panel-footer">
+										<div class="row">
+											<div class="col-md-9 col-md-offset-3">
+												<button type="submit" class="btn btn-primary">Submit</button>
+												<button type="reset" class="btn btn-default">Reset</button>
+											</div>
+										</div>
+									</div>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+			<aside id="sidebar-right" class="sidebar-right">
+				<div class="nano">
+					<div class="nano-content">
+						<a href="#" class="mobile-close visible-xs"> Collapse <i
+							class="fa fa-chevron-right"></i>
+						</a>
+
+						<div class="sidebar-right-wrapper">
+
+							<div class="sidebar-widget widget-calendar">
+								<h6>Upcoming Tasks</h6>
+								<div data-plugin-datepicker data-plugin-skin="dark"></div>
+
+								<ul>
+									<li><time datetime="2014-04-19T00:00+00:00">04/19/2014</time>
+										<span>Company Meeting</span></li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</aside>
+
+		</section>
+		<div th:include="layout :: copy4"></div>
+</body>
+</html>

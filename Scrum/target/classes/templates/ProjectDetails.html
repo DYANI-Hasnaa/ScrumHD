@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3">
+</head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
+			<div class="row" style="margin-left: 14%; margin-top: 2%; width: 100%;">
+			<div class="col-md-9">
+			<section class="panel">
+								<header class="panel-heading">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+										<a href="#" class="fa fa-times"></a>
+									</div>
+
+									<h2 class="panel-title">Project Details</h2>
+									<p class="panel-subtitle">From this page u can add different backlog's artifacts</p>
+								</header>
+								<div class="panel-body">
+									
+
+									<code>Project Name</code>
+									<blockquote class="success">
+										<p th:text="${backlog.projectname}"></p>
+									</blockquote>
+
+									<code>Backlog Name</code>
+									<blockquote class="danger">
+										<p th:text="${backlog.backlogname}"></p>
+									</blockquote>
+
+									<code>Backlog Description</code>
+									<blockquote class="info">
+										<p th:text="${backlog.backlogdescription}"></p>
+									</blockquote>
+									
+									<code>Sprint Duration</code>
+									<blockquote class="danger">
+										<p th:text="${backlog.sprintduration}"></p>
+									</blockquote>
+									
+
+								
+								</div>
+								
+								<div class="panel-footer">
+									 <a th:href="@{/CreateItem(projectname=${backlog.projectname})}">+ Create New Item</a>
+								</div>
+								
+					
+				</section>
+				</div>
+				</div>
+				</div>
+				
+		<div th:include="layout :: copy4"></div>
+</body>
+</html>
