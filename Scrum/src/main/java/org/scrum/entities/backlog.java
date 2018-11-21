@@ -36,6 +36,26 @@ public class backlog implements Serializable  {
 	@OneToMany(mappedBy="backlog", fetch=FetchType.LAZY)
 	private Collection<Item> items;
 	
+	@OneToMany(mappedBy="backlog", fetch=FetchType.LAZY)
+	private Collection<sprint> sprints;
+	
+	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+			int sprintduration, Collection<Item> items, Collection<sprint> sprints) {
+		super();
+		this.projectname = projectname;
+		this.backlogname = backlogname;
+		this.datecreation = datecreation;
+		this.backlogdescription = backlogdescription;
+		this.sprintduration = sprintduration;
+		this.items = items;
+		this.sprints = sprints;
+	}
+	public Collection<sprint> getSprints() {
+		return sprints;
+	}
+	public void setSprints(Collection<sprint> sprints) {
+		this.sprints = sprints;
+	}
 	public Long getIdBacklog() {
 		return  idBacklog;
 	}

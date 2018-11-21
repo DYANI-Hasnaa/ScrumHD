@@ -52,7 +52,7 @@ public class SprintController {
 	
 	
 	@RequestMapping(value="/CreateNewSprint", params = "btns1", method=RequestMethod.POST)
-	public String CreateNewSprint(Model model, sprint sprint, BindingResult bindingResult) {
+	public String CreateNewSprint(Model model, sprint sprint,BindingResult bindingResult) {
 		
 		this.projects(model);
 		
@@ -67,20 +67,25 @@ public class SprintController {
 
 	
 	@RequestMapping(value="/CreateNewSprint", params = "btns2", method=RequestMethod.POST)
-	public String CreateNewSprint1(Model model,Model modell, sprint sprint, BindingResult bindingResult) {
+	public String CreateNewSprint1(Model model,Model modell, Model mod, sprint sprint,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
 		if(bindingResult.hasErrors())
 			return "CreateSprint";
 		
-		sr.save(sprint);
+		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
 
 		//this.items(modell);
 		
 		//return "SprintBoard";
 		
-		this.sprints(modell);
+		List<sprint> sprints=sr.FindSprintByBacklog(backlog);
+		
+	    modell.addAttribute("listSprints", sprints); 
+	    
+	    mod.addAttribute("backlog", backlog); 
+		
 		
 		return "AllSprints";
 	}
@@ -101,7 +106,7 @@ public class SprintController {
 	
 
 	@RequestMapping(value="/sprintBoard", method=RequestMethod.GET)
-	public String sprintBoard(Model model,Model modell,String namesprint) {
+	public String sprintBoard(Model model,Model mod, Model modell,String namesprint, String projectname) {
 		
 		this.projects(model);
 		
@@ -111,11 +116,72 @@ public class SprintController {
 		
 		System.out.println(s.getNamesprint());
 		
+		backlog b=br.FindByProjectname(projectname);
+		
+		mod.addAttribute("backlog", b);
+		
+		List<Item> items=it.FindItemByBacklog(b);
+	    modell.addAttribute("listItems", items);
+		
+		return "SprintBoard";
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/allSprints", method=RequestMethod.GET)
+	public String allSprints(Model model, Model mod,String projectname) {
+		
+		
+		this.projects(model);
+		
+		backlog b=br.FindByProjectname(projectname);
+		
+		
+		mod.addAttribute("b",b);
+		
+		
+		List<sprint> sprints=sr.FindSprintByBacklog(b);
+		
+	    model.addAttribute("listSprints", sprints);   
+		
+		
+		return "AllSprints";
+	    
+	    
+	    
+	}
+	
+	
+	
+	
+	
+
+	@RequestMapping(value="/SprintTodo", method=RequestMethod.GET)
+	public String SprintTodo(Model model, Model modelll,Model modell,String namesprint, String name) {
+		
+		this.projects(model);
+		
+		sprint s=sr.FindBySprintName(namesprint);
+		
+		Item i=it.FindByItemName(name);
+		
+		s.setStatussprint("Is Doing");
+	
+		i.setStatus("In Progress");
+		
+		it.save(i);
+		sr.save(s);
+		
+		modelll.addAttribute("sprint", s);
+		
 		this.items(modell);
 		
 		return "SprintBoard";
 		
 	}
+	
+	
 	
 	
 }

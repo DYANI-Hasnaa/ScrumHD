@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3"></head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
+
+		<section class="content-body">
+
+
+			<header class="page-header">
+				<h2>Create Items</h2>
+
+				<div class="right-wrapper pull-right">
+					<ol class="breadcrumbs">
+						<li></li>
+						<li><span>Create Items</span></li>
+					</ol>
+
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						class="fa fa-chevron-left"></i></a>
+				</div>
+			</header>
+			
+			<div class="row">
+				<div class="col-md-6" data-plugin-portlet id="portlet-1">
+				
+				
+				
+				
+				
+				
+				
+				<div class="row">
+				<div class="col-md-6"  th:each="i:${listItems}" >
+							<section class="panel panel-tertiary" id="panel-1" data-portlet-item>
+								<header class="panel-heading portlet-handler">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+										<a href="#" class="fa fa-times"></a>
+									</div>
+
+									<h2 class="panel-title"><span th:text="${i.name}"/></h2>
+									</header>
+									<div class="panel-body">
+									     <span th:text="${i.note}"/> 
+									</div>
+									
+							</section>
+				</div>
+				
+				
+				
+				
+				
+				
+						</div>
+				</div>		
+				   
+				<div class="col-md-6">
+
+					<form th:action="@{/CreateNewItem}"
+						class="form-horizontal" method="post">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a> <a href="#"
+										class="fa fa-times"></a>
+								</div>
+
+								<h2 class="panel-title">Items</h2>
+
+							</header>
+							<div class="panel-body">
+							<div id="nouveau_devis_piece">
+							<div id="piece">
+								
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Item Name <span
+										class="required">*</span></label>
+									<div class="col-sm-8">
+										<input type="text" name="name" class="form-control"
+											required />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label"> Description <span
+										class="required">*</span></label>
+									<div class="col-sm-8">
+										<textarea  rows="5" name="note" class="form-control"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Requested On <span
+										class="required">*</span>
+									</label>
+									<div class="col-sm-8">
+										<input type="date" class="form-control" name="requestedOn"
+											required>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Status</label>
+									<div class="col-sm-8">
+										<select class="form-control" name="status" required>
+											<option>To do</option>
+											<option>Done</option>
+											<option>In progress</option>
+										</select>
+									</div>
+									<input type="hidden" name="idBacklog" th:value="${backlog.idBacklog}" />
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">Days <span
+										class="required">*</span>
+									</label>
+									<div class="col-sm-4">
+										<input type="number" class="form-control" name="days"
+											required>
+									</div>
+									
+									<label class="col-sm-2 control-label">Importance</label>
+									<div class="col-sm-4">
+											<select class="form-control" name="importance" required>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+										</select>
+									</div>
+								</div>
+								
+								</div>
+							
+							</div>
+							</div>
+							<footer class="panel-footer">
+								<div class="row">
+									<div class="col-sm-9 col-sm-offset-3">
+									    <button class="btn btn-primary" name="btn1">Create and Continue</button>
+										<button class="btn btn-primary" name="btn2">Create</button>
+										<button type="reset" class="btn btn-default">Reset</button>
+									</div>
+								</div>
+							</footer>
+						</section>
+					</form>
+				</div>
+			</div>
+
+		</section>
+
+		<div th:include="layout :: copy4"></div>
+		
+		
+</body>
+</html>

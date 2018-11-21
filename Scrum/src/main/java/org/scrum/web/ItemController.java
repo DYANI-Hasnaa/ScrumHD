@@ -36,15 +36,17 @@ public class ItemController {
 	
 	
 	@RequestMapping(value="/CreateItem", method=RequestMethod.GET)
-	public String CreateItem(Model model,Model modell,String projectname) {
+	public String CreateItem(Model model, Model mod, Model modell,String projectname) {
 		
 		this.projects(model);
-		
-		this.items(modell);
 		
 		backlog b=br.FindByProjectname(projectname);
 		
 		model.addAttribute("backlog",b);
+		
+		List<Item> items=ir.FindItemByBacklog(b);
+		
+	    model.addAttribute("listItems", items);
 		
 		System.out.println(b.getBacklogname());
 			
@@ -54,7 +56,7 @@ public class ItemController {
 	
 	
     @RequestMapping(value="/CreateNewItem", params = "btn2", method=RequestMethod.POST)
-	public String CreateNewItem(Model model, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem(Model model, Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
@@ -65,14 +67,18 @@ public class ItemController {
 		
 		ir.save(new Item(item.getName(), item.getImportance(), item.getDays(), item.getNote(), item.getRequestedOn(), item.getStatus(), backlog));
 		
-		this.items(modell);
+		List<Item> items=ir.FindItemByBacklog(backlog);
+		
+	    mod.addAttribute("listItems", items);
+		
+		model.addAttribute("backlog",backlog);
 		
 		return "CreateSprint";
 		
 	}
 	
 	@RequestMapping(value="/CreateNewItem",params = "btn1", method=RequestMethod.POST)
-	public String CreateNewItem1(Model model, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem1(Model model,Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
@@ -83,7 +89,9 @@ public class ItemController {
 		
 		ir.save(new Item(item.getName(), item.getImportance(), item.getDays(), item.getNote(), item.getRequestedOn(), item.getStatus(), backlog));
 		
-		this.items(modell);
+		List<Item> items=ir.FindItemByBacklog(backlog);
+		
+	    mod.addAttribute("listItems", items);
 		
 		return "CreateItem";
 		

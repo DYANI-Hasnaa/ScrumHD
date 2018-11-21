@@ -26,15 +26,61 @@ public class sprint implements Serializable {
 	private String namesprint;
 	@NonNull
 	private String descriptionsprint;
+	
+	
+	
+
 	@NonNull
 	private Date requestedOnsprint;
 	private Date validatedOnsprint;
 	@NonNull
 	private String statussprint;
 	
+	@ManyToOne
+	@JoinColumn(name="idBacklog")
+	private backlog backlog;
 	
 	@OneToMany(mappedBy="sprint", fetch=FetchType.LAZY)
 	private Collection<Item> items;
+
+	
+	
+	public backlog getBacklog() {
+		return backlog;
+	}
+
+
+
+	public void setBacklog(backlog backlog) {
+		this.backlog = backlog;
+	}
+
+
+
+	public sprint(String namesprint, String descriptionsprint, Date requestedOnsprint, String statussprint,
+			org.scrum.entities.backlog backlog) {
+		super();
+		this.namesprint = namesprint;
+		this.descriptionsprint = descriptionsprint;
+		this.requestedOnsprint = requestedOnsprint;
+		this.statussprint = statussprint;
+		this.backlog = backlog;
+	}
+
+
+
+	public sprint(String namesprint, String descriptionsprint, Date requestedOnsprint, String statussprint,
+			org.scrum.entities.backlog backlog, Collection<Item> items) {
+		super();
+		this.namesprint = namesprint;
+		this.descriptionsprint = descriptionsprint;
+		this.requestedOnsprint = requestedOnsprint;
+		this.statussprint = statussprint;
+		this.backlog = backlog;
+		this.items = items;
+	}
+
+
 
 
 	public sprint() {
