@@ -322,7 +322,7 @@
 								<ul class="list-unstyled m-none" th:each="b:${listBacklogs}">
 									<li><a  th:text="${b.projectname}"  th:href="@{showProject(projectname=${b.projectname})}" />
 									</li>
-												<a  th:href="@{allSprints(projectname=${b.projectname})}" style="color: white; margin-left: 15%;" > All Sprints </a>
+												<a  th:href="@{AllSprints(projectname=${b.projectname})}" style="color: white; margin-left: 15%;" > All Sprints </a>
 										
 									
 								</ul>

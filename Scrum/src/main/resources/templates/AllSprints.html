@@ -44,9 +44,9 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="mb-md">
-								<button id="addToTable" class="btn btn-primary">
+								<a th:href="@{CreateSprint(projectname=${backlog.projectname})}"><button id="addToTable" class="btn btn-primary">
 									Add <i class="fa fa-plus"></i>
-								</button>
+								</button></a>
 							</div>
 						</div>
 					</div>
@@ -70,11 +70,11 @@
 								<td class="actions"><a href="#"
 									class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
 									<a href="#" class="hidden on-editing cancel-row"><i
-										class="fa fa-times"></i></a> <a href="#"
+										class="fa fa-times"></i></a> <a th:href="@{editSprint(idSprint=${i.idSprint})}"
 									class="on-default edit-row"><i class="fa fa-pencil"></i></a> <a
-									href="#" class="on-default remove-row"><i
+									th:href="@{deleteSprint(idSprint=${i.idSprint}, projectname=${backlog.projectname})}" class="on-default remove-row"><i
 										class="fa fa-trash-o"></i></a>
-						 <a th:href="@{sprintBoard(namesprint=${i.namesprint}, projectname=${b.projectname})}" class="on-default remove-row"><i class="fa fa-bars"></i></a></td>
+						 <a th:href="@{sprintBoard(namesprint=${i.namesprint}, projectname=${backlog.projectname})}" class="on-default remove-row"><i class="fa fa-bars"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -119,5 +119,8 @@
 </body>
 </html>
  
+ 
+ 
+
  
  

@@ -39,13 +39,13 @@
                                     
                                     
                                     
-                                    <div class="input-group1 overflow"  th:each="i:${listItems}">
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsBacklog}">
                                         <span th:text="${i.name}"/>
                                         <div class="margin-top-10">
-                                            <button class="button button-backlog">Backlog</button>
-                                            <a th:href="@{SprintTodo(namesprint=${sprint.namesprint}, name=${i.name})}" class="button button-do">To do</button>
-                                            <button class="button button-progress">In Progress</button>
-                                            <button class="button button-done">Done</button>
+                                            <a th:href="@{SprintItemBacklog(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-backlog">Backlog</button></a>
+                                            <a th:href="@{SprintItemDo(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{SprintItemIn(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{SprintItemDone(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-done">Done</button></a>
                                         </div>
                                     </div>
                                     
@@ -56,12 +56,40 @@
                             <div class="flex">
                                 <div class="scrum-board to-do">
                                     <h2>To do</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsTodo}"  style="background-color: #D8BFD8">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                        	<a th:href="@{SprintItemBacklog(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-backlog">Backlog</button></a>
+                                            <a th:href="@{SprintItemDo(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{SprintItemIn(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{SprintItemDone(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                                 <div class="scrum-board in-progress">
                                     <h2>In progress</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsIn}"  style="background-color: #ffdfbc">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                            <a th:href="@{SprintItemBacklog(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-backlog">Backlog</button></a>
+                                            <a th:href="@{SprintItemDo(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{SprintItemIn(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{SprintItemDone(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="scrum-board done">
                                     <h2>Done</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsDone}"  style="background-color: #cfffd0">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                            <a th:href="@{SprintItemBacklog(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-backlog">Backlog</button></a>
+                                            <a th:href="@{SprintItemDo(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{SprintItemIn(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{SprintItemDone(name=${i.name}, namesprint=${sprint.namesprint})}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
