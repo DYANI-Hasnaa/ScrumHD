@@ -152,11 +152,16 @@ public class SprintController {
 	}
 	
 	@RequestMapping(value="/editSprint", method=RequestMethod.GET)
-	public String editSprint(Model model,Model modell, Long idSprint) {
+	public String editSprint(Model model,Model mod, Model modell, Long idSprint, String projectname) {
 		
 		this.projects(model);
 		Optional<sprint> s = sr.findById(idSprint);
 		modell.addAttribute("sprint",s.get());
+		
+		backlog b=br.FindByProjectname(projectname);
+		
+		mod.addAttribute("backlog", b);
+		
 		return "editSprint";
 		
 	}
@@ -230,6 +235,8 @@ public class SprintController {
 		
 		if(bindingResult.hasErrors())
 			return "CreateSprint";
+		
+		System.out.println("\n\n\n"+sprint.getDescriptionsprint());
 		
 		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
 
