@@ -1,10 +1,9 @@
 package org.scrum.web;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
-
-import java.util.Optional;
 
 import org.scrum.dao.BacklogRepository;
 import org.scrum.dao.ItemRepository;
@@ -42,72 +41,116 @@ public class SprintController {
 	    model.addAttribute("listBacklogs", backlogs);
 	}
 	
-
 	
-	public void items(Model model) {
-		List<Item> items=it.findAll();
-	    model.addAttribute("listItemsBacklog", items);
+	@RequestMapping(value="/CreateSprint", method=RequestMethod.GET)
+	public String CreateSprint(Model model, String projectname) {
+		
+		this.projects(model);
+		backlog b=br.FindByProjectname(projectname);
+		model.addAttribute("backlog",b);
+		return "CreateSprint";
+		
 	}
 	
 	
-	public void sprints(Model model) {
-		
-		List<sprint> sprints=sr.findAll();
-	    model.addAttribute("listSprints", sprints);    
-	    
-	}
-	
-	
-
-	
-	
-	@RequestMapping(value="/AllSprints", method=RequestMethod.GET)
-	public String AllSprints(Model model, Model mod,String projectname) {
-		
+	@RequestMapping(value="/CreateNewSprint", params = "btns1", method=RequestMethod.POST)
+	public String CreateNewSprint(Model model, Model mod, sprint sprint,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
-		backlog b=br.FindByProjectname(projectname);
+		if(bindingResult.hasErrors())
+			return "CreateSprint";
 		
-		
-		mod.addAttribute("backlog",b);
-		
-		
-		List<sprint> sprints=sr.FindSprintByBacklog(b);
-		
-	    model.addAttribute("listSprints", sprints);   
-		
-		
-		return "AllSprints";
+		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
 	    
-	    
-	    
+	    mod.addAttribute("backlog", backlog);
+		
+		return "CreateSprint";
+	}
+	
+
+	
+	@RequestMapping(value="/CreateNewSprint", params = "btns2", method=RequestMethod.POST)
+	public String CreateNewSprint1(Model model,Model modell,Model mod, sprint sprint ,backlog backlog, BindingResult bindingResult) {
+		
+		this.projects(model);
+		
+		if(bindingResult.hasErrors())
+			return "CreateSprint";
+		
+		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
+		
+		Optional<backlog> b = br.findById(backlog.getIdBacklog());
+		
+		return "redirect:/AllSprints?projectname="+b.get().getProjectname();
 	}
 	
 	
-	
-	
-	
-	
-	
 
+	@RequestMapping(value="/sprintBoard", method=RequestMethod.GET)
+	public String sprintBoard(Model model,Model modell,Model modelll,String namesprint, String projectname) {
+		
+		this.projects(model);
+		
+		sprint s=sr.FindBySprintName(namesprint);
+		
+		model.addAttribute("sprint",s);
+		
+		backlog b=br.FindByProjectname(projectname);
+		
+		List<Item> itemsTodo=(List<Item>) it.findAllSprintTodo(s,b);
+	    modelll.addAttribute("listItemsTodo", itemsTodo);
+		List<Item> itemsIn=(List<Item>) it.findAllSprintIn(s,b);
+	    modelll.addAttribute("listItemsIn", itemsIn);
+		List<Item> itemsDone=(List<Item>) it.findAllSprintDone(s,b);
+	    modelll.addAttribute("listItemsDone", itemsDone);
+		
+	    List<Item> itemsBacklog=it.FindItemBacklog(b);
+	    model.addAttribute("listItemsBacklog", itemsBacklog);
+	    model.addAttribute("backlog", b);
+	    
+		return "SprintBoard";
+		
+	}
+	
+	
 	@RequestMapping(value="/SprintItemDo", method=RequestMethod.GET)
-	public String SprintItemDo(String name , String namesprint) {
+	public String SprintItemDo(String name , String namesprint, String projectname) {
 		
 		sprint s=sr.FindBySprintName(namesprint);
 		Item i=it.FindByItemName(name);
+		backlog b=br.FindByProjectname(projectname);
+		
+		
+		List<Item> items=(List<Item>) it.FindSum(s);
+	   
+		int somme=0;
+		
+		for(Item ii: items)
+		{		
+			somme+=ii.getDays();	
+		}	
 		
 		String status = "To do";
-		i.setSprint(s);
-		i.setStatus(status);
-		it.save(i);
 		
-		return "redirect:/sprintBoard?namesprint="+namesprint;
+		System.out.println(somme);
+		
+		if (somme + i.getDays() > b.getSprintduration()) {
+	
+			return "403";	
+			
+		}else {
+			
+			i.setSprint(s);
+			i.setStatus(status);
+			it.save(i);
+			return "redirect:/sprintBoard?namesprint="+namesprint+"&projectname="+projectname;
+		}
 		
 	}
 	
 	@RequestMapping(value="/SprintItemIn", method=RequestMethod.GET)
-	public String SprintItemIn(String name , String namesprint) {
+	public String SprintItemIn(String name , String namesprint, String projectname) {
 		
 		sprint s=sr.FindBySprintName(namesprint);
 		Item i=it.FindByItemName(name);
@@ -117,12 +160,12 @@ public class SprintController {
 		i.setStatus(status);
 		it.save(i);
 		
-		return "redirect:/sprintBoard?namesprint="+namesprint;
+		return "redirect:/sprintBoard?namesprint="+namesprint+"&projectname="+projectname;
 		
 	}
 	
 	@RequestMapping(value="/SprintItemDone", method=RequestMethod.GET)
-	public String SprintItemDone(String name , String namesprint) {
+	public String SprintItemDone(String name , String namesprint, String projectname) {
 		
 		sprint s=sr.FindBySprintName(namesprint);
 		Item i=it.FindByItemName(name);
@@ -132,38 +175,59 @@ public class SprintController {
 		i.setStatus(status);
 		it.save(i);
 		
-		return "redirect:/sprintBoard?namesprint="+namesprint;
+		return "redirect:/sprintBoard?namesprint="+namesprint+"&projectname="+projectname;
 		
 	}
 	
 	@RequestMapping(value="/SprintItemBacklog", method=RequestMethod.GET)
-	public String SprintItemBacklog(String name , String namesprint) {
+	public String SprintItemBacklog(String name , String namesprint, String projectname) {
 		
 		sprint s=sr.FindBySprintName(namesprint);
 		Item i=it.FindByItemName(name);
 		
-		String status = "To do";
+		String status = null;
 		i.setSprint(null);
 		i.setStatus(status);
 		it.save(i);
 		
-		return "redirect:/sprintBoard?namesprint="+namesprint;
+		return "redirect:/sprintBoard?namesprint="+namesprint+"&projectname="+projectname;
 		
 	}
 	
 	@RequestMapping(value="/editSprint", method=RequestMethod.GET)
-	public String editSprint(Model model,Model mod, Model modell, Long idSprint, String projectname) {
+	public String editSprint(Model model,Model modell, Long idSprint, String projectname) {
 		
 		this.projects(model);
 		Optional<sprint> s = sr.findById(idSprint);
 		modell.addAttribute("sprint",s.get());
-		
 		backlog b=br.FindByProjectname(projectname);
-		
-		mod.addAttribute("backlog", b);
-		
+		modell.addAttribute("backlog",b);
 		return "editSprint";
 		
+	}
+	
+	@RequestMapping(value="/editSprintSprint", params = "btns2", method=RequestMethod.POST)
+	public String editSprintSprint(Model model, sprint sprint ,backlog backlog, BindingResult bindingResult, Long idSprint) {
+		
+		this.projects(model);
+		
+		System.out.println(idSprint);
+		
+		if(bindingResult.hasErrors())
+			return "CreateSprint";
+		
+		Optional<sprint> s=sr.findById(idSprint);
+		
+		s.get().setDescriptionsprint(sprint.getDescriptionsprint());
+		s.get().setNamesprint(sprint.getNamesprint());
+		s.get().setRequestedOnsprint(sprint.getRequestedOnsprint());
+		s.get().setStatussprint(sprint.getStatussprint());
+		s.get().setBacklog(backlog);
+		sr.save(s.get());
+		
+		Optional<backlog> b = br.findById(backlog.getIdBacklog());
+		
+		return "redirect:/AllSprints?projectname="+b.get().getProjectname();
 	}
 	
 	@RequestMapping(value="/deleteSprint", method=RequestMethod.GET)
@@ -171,163 +235,21 @@ public class SprintController {
 		
 		this.projects(model);
 		sr.deleteById(idSprint);
-		
-		backlog b=br.FindByProjectname(projectname);
-		
-		mod.addAttribute("backlog", b);
-		
 		return "redirect:/AllSprints?projectname="+projectname;
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*@RequestMapping(value="/CreateSprint", method=RequestMethod.GET)
-	public String CreateSprint(Model model) {
+	@RequestMapping(value="/AllSprints")
+	public String AllSprints(Model model, Model modell,Model mod, String projectname) {
 		
 		this.projects(model);
-		
-		return "CreateSprint";
-		
-	}*/
-	
-	@RequestMapping(value="/CreateSprint", method=RequestMethod.GET)
-	public String CreateSprint(Model model,Model mod, String projectname) {
-		
-		this.projects(model);
-		
-
 		backlog b=br.FindByProjectname(projectname);
 		
-		mod.addAttribute("backlog", b);
 		
-		return "CreateSprint";
-		
+		mod.addAttribute("backlog",b);
+		List<sprint> sprints=sr.FindSprintByBacklog(b);
+	    modell.addAttribute("listSprints", sprints);
+	    return "AllSprints";
 	}
-	
-	
-	
-	@RequestMapping(value="/CreateNewSprint", params = "btns1", method=RequestMethod.POST)
-	public String CreateNewSprint(Model model, sprint sprint,BindingResult bindingResult) {
-		
-		this.projects(model);
-		
-		if(bindingResult.hasErrors())
-			return "CreateSprint";
-		
-		sr.save(sprint);
-
-		return "CreateSprint";
-	}
-	
-
-	
-	@RequestMapping(value="/CreateNewSprint", params = "btns2", method=RequestMethod.POST)
-	public String CreateNewSprint1(Model model,Model modell, Model mod, Model mo, sprint sprint,backlog backlog, BindingResult bindingResult) {
-		
-		this.projects(model);
-		
-		if(bindingResult.hasErrors())
-			return "CreateSprint";
-		
-		System.out.println("\n\n\n"+sprint.getDescriptionsprint());
-		
-		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
-
-		
-		
-		List<sprint> sprints=sr.FindSprintByBacklog(backlog);
-		
-	    modell.addAttribute("listSprints", sprints); 
-	    
-	    mod.addAttribute("backlog", backlog); 
-	    
-	    System.out.println("\n\n\n\n"+backlog.getProjectname());
-		
-		
-		return "AllSprints";
-	}
-	
-	
-	
-	
-	
-	
-
-	@RequestMapping(value="/sprintBoard", method=RequestMethod.GET)
-	public String sprintBoard(Model model, Model mod, Model mo,Model modell,Model modelll,String namesprint, String projectname) {
-		
-		this.projects(model);
-		
-		sprint s=sr.FindBySprintName(namesprint);
-		
-		model.addAttribute("sprint",s);
-		
-		List<Item> itemsTodo=(List<Item>) it.findAllSprintTodo(s);
-	    modelll.addAttribute("listItemsTodo", itemsTodo);
-		List<Item> itemsIn=(List<Item>) it.findAllSprintIn(s);
-	    modelll.addAttribute("listItemsIn", itemsIn);
-		List<Item> itemsDone=(List<Item>) it.findAllSprintDone(s);
-	    modelll.addAttribute("listItemsDone", itemsDone);
-		
-		backlog b=br.FindByProjectname(projectname);
-		
-		mod.addAttribute("backlog", b);
-		
-		List<Item> items=it.FindItemBacklog(b);
-		mo.addAttribute("listItemsBacklog", items);
-		
-		return "SprintBoard";
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -72,7 +72,7 @@
 									<a href="#" class="hidden on-editing cancel-row"><i
 										class="fa fa-times"></i></a> <a th:href="@{editSprint(idSprint=${i.idSprint}, projectname=${backlog.projectname})}"
 									class="on-default edit-row"><i class="fa fa-pencil"></i></a> <a
-									th:href="@{deleteSprint(idSprint=${i.idSprint}, projectname=${backlog.projectname})}" class="on-default remove-row"><i
+									th:href="@{deleteSprint(idSprint=${i.idSprint}, projectname=${backlog.projectname} )}" class="on-default remove-row"><i
 										class="fa fa-trash-o"></i></a>
 						 <a th:href="@{sprintBoard(namesprint=${i.namesprint}, projectname=${backlog.projectname})}" class="on-default remove-row"><i class="fa fa-bars"></i></a></td>
 							</tr>
@@ -119,8 +119,5 @@
 </body>
 </html>
  
- 
- 
-
  
  

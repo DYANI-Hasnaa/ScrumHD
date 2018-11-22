@@ -9,13 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface SprintRepository extends JpaRepository<sprint, Long>{
-	
+
 	@Query("select s from sprint s where s.namesprint=:namesprint")
 	public sprint FindBySprintName(@Param("namesprint")String namesprint); 
 	
 	@Query("select s from sprint s where s.backlog=:backlog")
-	public List<sprint> FindSprintByBacklog(@Param("backlog")backlog backlog); 
-
-	
-
+	public List<sprint> FindSprintByBacklog(@Param("backlog")backlog backlog);
 }

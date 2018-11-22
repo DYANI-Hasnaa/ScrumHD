@@ -36,7 +36,7 @@ public class ItemController {
 	
 	
 	@RequestMapping(value="/CreateItem", method=RequestMethod.GET)
-	public String CreateItem(Model model, Model mod, Model modell,String projectname) {
+	public String CreateItem(Model model,Model modell, Model mod, String projectname) {
 		
 		this.projects(model);
 		
@@ -56,18 +56,18 @@ public class ItemController {
 	
 	
     @RequestMapping(value="/CreateNewItem", params = "btn2", method=RequestMethod.POST)
-	public String CreateNewItem(Model model, Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem(Model model , Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
-		this.items(modell);
+		List<Item> items=ir.FindItemByBacklog(backlog);
+		
+		mod.addAttribute("listItems", items);
 		
 		if(bindingResult.hasErrors())
 			return "CreateItem";
 		
 		ir.save(new Item(item.getName(), item.getImportance(), item.getDays(), item.getNote(), item.getRequestedOn(), item.getStatus(), backlog));
-		
-		List<Item> items=ir.FindItemByBacklog(backlog);
 		
 	    mod.addAttribute("listItems", items);
 		
@@ -78,30 +78,25 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value="/CreateNewItem",params = "btn1", method=RequestMethod.POST)
-	public String CreateNewItem1(Model model,Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem1(Model model, Model modell, Model mod,@Valid Item item,backlog backlog, BindingResult bindingResult) {
 		
 		this.projects(model);
 		
-		this.items(modell);
+		List<Item> items=ir.FindItemByBacklog(backlog);
+		
+	    mod.addAttribute("listItems", items);
 		
 		if(bindingResult.hasErrors())
 			return "CreateItem";
 		
 		ir.save(new Item(item.getName(), item.getImportance(), item.getDays(), item.getNote(), item.getRequestedOn(), item.getStatus(), backlog));
 		
-		List<Item> items=ir.FindItemByBacklog(backlog);
-		
-	    mod.addAttribute("listItems", items);
+		List<Item> itemss=ir.FindItemByBacklog(backlog);
+	    mod.addAttribute("listItems", itemss);
 		
 		return "CreateItem";
 		
 	}
-	
-	public void items(Model model) {
-		List<Item> items=ir.findAll();
-	    model.addAttribute("listItems", items);
-	}
-	
 	
 
 

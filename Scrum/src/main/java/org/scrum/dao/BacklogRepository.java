@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface BacklogRepository extends JpaRepository<backlog, Long>{
 	
 	@Query("select b from backlog b where b.projectname=:projectname")
-	public backlog FindByProjectname(@Param("projectname")String projectname); 
+	public backlog FindByProjectname(@Param("projectname")String projectname);
 
 	
 

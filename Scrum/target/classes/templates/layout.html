@@ -320,11 +320,9 @@
 							</div>
 							<div class="widget-content">
 								<ul class="list-unstyled m-none" th:each="b:${listBacklogs}">
-									<li><a  th:text="${b.projectname}"  th:href="@{showProject(projectname=${b.projectname})}" />
+									<li><a  th:text="${b.projectname}"  th:href="@{showProject(projectname=${b.projectname})}" />	
 									</li>
-												<a  th:href="@{AllSprints(projectname=${b.projectname})}" style="color: white; margin-left: 15%;" > All Sprints </a>
-										
-									
+									<a  th:href="@{AllSprints(projectname=${b.projectname})}" style="color: white; margin-left: 15%;" > All Sprints </a>
 								</ul>
 							</div>
 							<a th:href="@{/CreatePjtBlog}">+ create new project</a>
@@ -381,7 +379,7 @@
 		<script src="../static/assets/vendor/jquery-validation/jquery.validate.js" th:src="@{assets/vendor/jquery-validation/jquery.validate.js}"></script>
 		<script src="../static/assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js" th:src="@{assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js}"></script>
 		<script src="../static/assets/vendor/pnotify/pnotify.custom.js" th:src="@{assets/vendor/pnotify/pnotify.custom.js}"></script>
-		<script>
+		<!--script>
                 init();
 
                 //Button Functions------------------------------------------
@@ -437,7 +435,7 @@
                             });
                   
                 }
-            </script>
+            </script-->
 	
 	
 	</div>

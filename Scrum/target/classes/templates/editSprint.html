@@ -28,7 +28,7 @@
 
 				
 						
-							<form th:action="@{/CreateNewSprint}" id="summary-form" class="form-horizontal"  method="post">
+							<form th:action="@{/editSprintSprint}" id="summary-form" class="form-horizontal"  method="post">
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -61,7 +61,6 @@
 												<input type="date" name="requestedOnsprint" class="form-control" th:value="${sprint.requestedOnsprint}" placeholder="requestedOn" />
 											</div>
 										</div>
-										<input type="hidden" name="idBacklog" th:value="${backlog.idBacklog}" />
 										
 										<div class="form-group">
 											<label class="col-sm-3 control-label">Status <span class="required">*</span></label>
@@ -73,7 +72,8 @@
 												</select>
 											</div>
 										</div>
-										<input type="hidden" name="idSprint" th:value="${sprint.idSprint}"/>
+										<input type="hidden" name="idBacklog" th:value="${backlog.idBacklog}" />
+										<input type="hidden" name="idSprint" th:value="${sprint.idSprint}" />
 									</div>
 									
 									
