@@ -50,6 +50,12 @@
 							</div>
 						</div>
 					</div>
+					<div>
+						<span class="red" th:if="${error}" th:text="${error}" style="color: red">You can't add anymore Items!</span>
+						 
+						
+					</div>
+					
 					<table class="table table-bordered table-striped mb-none"
 						id="datatable-editable">
 						<thead>

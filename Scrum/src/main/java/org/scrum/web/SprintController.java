@@ -109,6 +109,9 @@ public class SprintController {
 	    model.addAttribute("listItemsBacklog", itemsBacklog);
 	    model.addAttribute("backlog", b);
 	    
+	    String r = "hhhh";
+		model.addAttribute("error",r);
+	    
 		return "SprintBoard";
 		
 	}
@@ -120,8 +123,6 @@ public class SprintController {
 		sprint s=sr.FindBySprintName(namesprint);
 		Item i=it.FindByItemName(name);
 		backlog b=br.FindByProjectname(projectname);
-		
-		
 		List<Item> items=(List<Item>) it.FindSum(s);
 	   
 		int somme=0;
@@ -137,7 +138,7 @@ public class SprintController {
 		
 		if (somme + i.getDays() > b.getSprintduration()) {
 	
-			return "403";	
+			return "redirect:/sprintBoard?namesprint="+namesprint+"&projectname="+projectname;	
 			
 		}else {
 			
