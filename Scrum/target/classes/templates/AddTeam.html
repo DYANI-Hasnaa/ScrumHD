@@ -4,85 +4,96 @@
 <body>
 
 
-    <div th:replace="layout :: copy1"></div>
-    <div class="inner-wrapper">
-        <div th:replace="layout :: copy2"></div>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
 
-        <section class="content-body">
+		<section class="content-body">
 
-            <header class="page-header">
-                <h2>Invite your team</h2>
+			<header class="page-header">
+				<h2>Invite your team</h2>
 
-                <div class="right-wrapper pull-right">
-                    <ol class="breadcrumbs">
-                        <li></li>
-                        <li><span>Add team member</span></li>
-                    </ol>
+				<div class="right-wrapper pull-right">
+					<ol class="breadcrumbs">
+						<li></li>
+						<li><span>Add member team</span></li>
+					</ol>
 
-                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i
-                        class="fa fa-chevron-left"></i></a>
-                </div>
-            </header>
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						class="fa fa-chevron-left"></i></a>
+				</div>
+			</header>
 
-            <div class="row"
-                style="margin-left: 14%; margin-top: 10%; width: 100%;">
-                <div class="col-md-8 col-lg-9">
+			<div class="row"
+				style="margin-left: 14%; margin-top: 10%; width: 100%;">
+				<div class="col-md-8 col-lg-9">
 
-                    <form th:action="@{/sendemail}" id="summary-form"
-                        class="form-horizontal" method="post">
-                        <section class="panel">
-                            <header class="panel-heading">
-                                <div class="panel-actions">
-                                    <a href="#" class="fa fa-caret-down"></a> <a href="#"
-                                        class="fa fa-times"></a>
-                                </div>
+					<form th:action="@{/sendemail}" id="summary-form"
+						class="form-horizontal" method="post">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a> <a href="#"
+										class="fa fa-times"></a>
+								</div>
 
-                                <h2 class="panel-title">Team Members</h2>
+								<h2 class="panel-title">Team member</h2>
 
-                            </header>
-                            <div class="panel-body">
-                                <div class="validation-message">
-                                    <ul></ul>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Project <span
-                                        class="required">*</span></label>
-                                    <div class="col-sm-9">
-                                        <select type="text" name="projectname" class="form-control" required >
-                                            <div th:each="b:${listBacklogs}">
+							</header>
+							<div class="panel-body">
+								<div class="validation-message">
+									<ul></ul>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Project <span
+										class="required">*</span></label>
+									<div class="col-sm-9">
+										<select type="text" name="projectname" class="form-control" required >
+											<div th:each="b:${listBacklogs}">
 												<option th:text="${b.projectname}"></option>
 											</div>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Email <span class="required">*</span>
-                                    </label>
-                                    <div class="col-sm-9">
-                                        <input rows="5" name="email"
-                                            class="form-control" placeholder="email" required/>
-                                    </div>
-                            </div>
-                           </div>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Email <span class="required">*</span>
+									</label>
+									<div class="col-sm-9">
+										<input rows="5" name="email"
+											class="form-control" placeholder="Email" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Role <span class="required">*</span>
+									</label>
+									<div class="col-sm-9">
+										<select name="role" class="form-control" >
+										  <option value="scrumMaster">scrumMaster</option>
+										  <option value="client">client</option>
+										  <option value="teamMember">teamMember</option>
+										</select>
+									</div>
+								</div>
+							</div>
 
-                            <footer class="panel-footer">
-                                <div class="row">
-                                    <div class="col-sm-9 col-sm-offset-3">
-                                        <button class="btn btn-primary" name="btns1">Add
-                                            and Continue</button>
-                                        <button class="btn btn-primary" name="btns2">Add</button>
-                                        <button type="reset" class="btn btn-default">Reset</button>
-                                    </div>
-                                </div>
-                            </footer>
-                        </section>
-                    </form>
+							<footer class="panel-footer">
+								<div class="row">
+									<div class="col-sm-9 col-sm-offset-3">
+										<button class="btn btn-primary" name="btns1">Add
+											and Continue</button>
+										<button class="btn btn-primary" name="btns2">Add</button>
+										<button type="reset" class="btn btn-default">Reset</button>
+									</div>
+								</div>
+							</footer>
+						</section>
+					</form>
 
-                </div>
-            </div>
+				</div>
+			</div>
 
-        </section>
+		</section>
 
-        <div th:include="layout :: copy4"></div>
+		<div th:include="layout :: copy4"></div>
 </body>
 </html>

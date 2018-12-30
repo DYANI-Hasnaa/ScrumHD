@@ -2,13 +2,20 @@ package org.scrum.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,35 +28,33 @@ public class user implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@NonNull
 	private String nom;
-	@NonNull
 	private String prenom;
-	@NonNull
-	@Column(unique=true)
 	private String username;
-	@NonNull
 	private Date dateNaissance;
-	@NonNull
+	@Column(unique=true)
 	private String email;
-	@NonNull
 	@Size(min=6,max=16)
 	private String password;
-	@NonNull
 	private String tel;
 	private Integer status;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	@NotNull
 	private String adresse;
-	@NotNull
 	private String titre;
-	@NotNull
 	private String company;
 	
+	@ManyToMany(mappedBy = "user")
+    private Set<backlog> backlog = new HashSet<>();
 	
-	
-	
+
+	public user(String email, Role role, Set<org.scrum.entities.backlog> backlog) {
+		super();
+		this.email = email;
+		this.role = role;
+		this.backlog = backlog;
+	}
+
 	public user(String nom, String prenom, String username, Date dateNaissance, String email,
 			@Size(min = 6, max = 16) String password, String tel, Integer status, Role role, @NotNull String adresse,
 			@NotNull String titre, @NotNull String company) {
@@ -190,6 +195,14 @@ public class user implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public Set<backlog> getBacklog() {
+		return backlog;
+	}
+
+	public void setBacklog(Set<backlog> backlog) {
+		this.backlog = backlog;
 	}
 	
 }

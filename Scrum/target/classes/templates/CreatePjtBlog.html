@@ -73,6 +73,7 @@
 												<input type="number"  name="sprintduration"  class="form-control" placeholder="sprint duration" required/>
 											</div>
 										</div>
+										<input type="hidden" name="username" th:value="${#httpServletRequest.remoteUser}"/>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">

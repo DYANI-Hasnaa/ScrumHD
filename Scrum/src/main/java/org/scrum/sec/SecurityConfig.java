@@ -10,10 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
@@ -31,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.formLogin().loginPage("/signin");
-		http.authorizeRequests().antMatchers("/index").hasRole("productOwner");
+		//http.authorizeRequests().antMatchers("/index").hasRole("productOwner");
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
 }

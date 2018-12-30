@@ -32,5 +32,4 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
 	
 	@Query("select i from Item i where i.sprint=:sprint")
 	public List<Item> FindSum(@Param("sprint")sprint sprint);
-
 }

@@ -3,12 +3,18 @@ package org.scrum.entities;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
@@ -39,6 +45,25 @@ public class backlog implements Serializable  {
 	@OneToMany(mappedBy="backlog", fetch=FetchType.LAZY)
 	private Collection<sprint> sprints;
 	
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "userBacklog", 
+        joinColumns = { @JoinColumn(name = "idBacklog", nullable = false, updatable = false) }, 
+        inverseJoinColumns = { @JoinColumn(name = "id", nullable = false, updatable = false) }
+    )
+	private Set<user> user = new HashSet<>();
+	
+	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+			int sprintduration, Set<user> user) {
+		super();
+		this.projectname = projectname;
+		this.backlogname = backlogname;
+		this.datecreation = datecreation;
+		this.backlogdescription = backlogdescription;
+		this.sprintduration = sprintduration;
+		this.user = user;
+	}
 	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
 			int sprintduration, Collection<Item> items, Collection<sprint> sprints) {
 		super();
@@ -132,6 +157,11 @@ public class backlog implements Serializable  {
 		this.items = items;
 	}
 	
-	
+	public Set<user> getUser() {
+		return user;
+	}
+	public void setUsers(Set<user> user) {
+		this.user = user;
+	}
 	
 }

@@ -46,7 +46,7 @@
 								</div>
 								
 								<div class="panel-footer">
-									 <a th:href="@{/CreateItem(projectname=${backlog.projectname})}">+ Create New Item</a>
+									 <a th:href="@{/CreateItem(projectname=${backlog.projectname} , username=${#httpServletRequest.remoteUser})}">+ Create New Item</a>
 								</div>
 								
 					

@@ -3,6 +3,7 @@ package org.scrum.web;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -29,16 +30,16 @@ public class ItemController {
 	private ItemRepository ir;
 	
 	
-	public void projects(Model model) {
-		List<backlog> backlogs=br.findAll();
+	public void projects(Model model, String username) {
+		Set<backlog> backlogs=br.FindByUser(username);
 	    model.addAttribute("listBacklogs", backlogs);
 	}
 	
 	
 	@RequestMapping(value="/CreateItem", method=RequestMethod.GET)
-	public String CreateItem(Model model,Model modell, Model mod, String projectname) {
+	public String CreateItem(Model model,Model modell, Model mod, String projectname, String username) {
 		
-		this.projects(model);
+		this.projects(model, username);
 		
 		backlog b=br.FindByProjectname(projectname);
 		
@@ -56,9 +57,9 @@ public class ItemController {
 	
 	
     @RequestMapping(value="/CreateNewItem", params = "btn2", method=RequestMethod.POST)
-	public String CreateNewItem(Model model , Model mod, Model modell,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem(Model model , Model mod, Model modell,@Valid Item item,backlog backlog, String username, BindingResult bindingResult) {
 		
-		this.projects(model);
+		this.projects(model, username);
 		
 		List<Item> items=ir.FindItemByBacklog(backlog);
 		
@@ -78,9 +79,9 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value="/CreateNewItem",params = "btn1", method=RequestMethod.POST)
-	public String CreateNewItem1(Model model, Model modell, Model mod,@Valid Item item,backlog backlog, BindingResult bindingResult) {
+	public String CreateNewItem1(Model model, Model modell, Model mod,@Valid Item item,backlog backlog, String username, BindingResult bindingResult) {
 		
-		this.projects(model);
+		this.projects(model, username);
 		
 		List<Item> items=ir.FindItemByBacklog(backlog);
 		

@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="fixed">
+
+	<head th:include="layout :: copy3">
+
+</head>
+	
+	<body>
+	
+				<div th:replace="layout :: copy1"></div>
+				<div th:replace="layout :: copy2"></div>					
+				<section class="content-body">
+				
+				<br>
+				<br>
+				<br>
+				<br>
+				<div th:if="${message}">
+					<h2 th:text="${message}"/>
+				</div>
+			
+				<div>
+					<form method="POST" enctype="multipart/form-data" action="/?${_csrf.parameterName}=${_csrf.token}">
+						<table>
+							<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+							<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+						</table>
+					</form>
+				</div>
+			
+				<div>
+					<ul>
+						<li th:each="file : ${files}">
+							<a th:href="${file}" th:text="${file}" />
+						</li>
+					</ul>
+				</div>
+
+		
+				
+
+				</section>
+				
+			
+				<div th:include="layout :: copy4"></div>
+			
+	</body>
+
+</html>
