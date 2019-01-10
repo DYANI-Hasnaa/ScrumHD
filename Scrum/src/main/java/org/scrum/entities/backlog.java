@@ -30,8 +30,6 @@ public class backlog implements Serializable  {
 	@Column(unique=true)
 	private String projectname;
 	@NonNull
-	private String backlogname;
-	@NonNull
 	private Date datecreation;
 	@NonNull
 	private String backlogdescription;
@@ -54,21 +52,19 @@ public class backlog implements Serializable  {
     )
 	private Set<user> user = new HashSet<>();
 	
-	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+	public backlog(String projectname, Date datecreation, String backlogdescription,
 			int sprintduration, Set<user> user) {
 		super();
 		this.projectname = projectname;
-		this.backlogname = backlogname;
 		this.datecreation = datecreation;
 		this.backlogdescription = backlogdescription;
 		this.sprintduration = sprintduration;
 		this.user = user;
 	}
-	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+	public backlog(String projectname, Date datecreation, String backlogdescription,
 			int sprintduration, Collection<Item> items, Collection<sprint> sprints) {
 		super();
 		this.projectname = projectname;
-		this.backlogname = backlogname;
 		this.datecreation = datecreation;
 		this.backlogdescription = backlogdescription;
 		this.sprintduration = sprintduration;
@@ -93,12 +89,6 @@ public class backlog implements Serializable  {
 	public void setProjectname(String projectname) {
 		this.projectname = projectname;
 	}
-	public String getBacklogname() {
-		return backlogname;
-	}
-	public void setBacklogname(String backlogname) {
-		this.backlogname = backlogname;
-	}
 	public Date getDatecreation() {
 		return datecreation;
 	}
@@ -111,10 +101,9 @@ public class backlog implements Serializable  {
 	public void setBacklogdescription(String backlogdescription) {
 		this.backlogdescription = backlogdescription;
 	}
-	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription) {
+	public backlog(String projectname, Date datecreation, String backlogdescription) {
 		super();
 		this.projectname = projectname;
-		this.backlogname = backlogname;
 		this.datecreation = datecreation;
 		this.backlogdescription = backlogdescription;
 	}
@@ -127,11 +116,10 @@ public class backlog implements Serializable  {
 	public void setItems(Collection<Item> items) {
 		this.items = items;
 	}
-	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+	public backlog(String projectname, Date datecreation, String backlogdescription,
 			Collection<Item> items) {
 		super();
 		this.projectname = projectname;
-		this.backlogname = backlogname;
 		this.datecreation = datecreation;
 		this.backlogdescription = backlogdescription;
 		this.items = items;
@@ -146,11 +134,10 @@ public class backlog implements Serializable  {
 	public void setSprintduration(int sprintduration) {
 		this.sprintduration = sprintduration;
 	}
-	public backlog(String projectname, String backlogname, Date datecreation, String backlogdescription,
+	public backlog(String projectname, Date datecreation, String backlogdescription,
 			int sprintduration, Collection<Item> items) {
 		super();
 		this.projectname = projectname;
-		this.backlogname = backlogname;
 		this.datecreation = datecreation;
 		this.backlogdescription = backlogdescription;
 		this.sprintduration = sprintduration;

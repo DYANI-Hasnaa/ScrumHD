@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.formLogin().loginPage("/signin");
-		//http.authorizeRequests().antMatchers("/index").hasRole("productOwner");
+		http.authorizeRequests().antMatchers("/index").permitAll();
+		http.authorizeRequests().antMatchers("/CreatePjtBlog","/CreateItem", "/CreateSprint", "/editSprint", "/deleteSprint", "/AddTeam1", "/editItem", "/deleteItem" , "/AffectItem" , "/discutionPO").hasRole("productOwner");
 		http.exceptionHandling().accessDeniedPage("/403");
 	}
 }

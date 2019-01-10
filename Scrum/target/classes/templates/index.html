@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head th:include="layout :: copy3"></head>
+<head th:include="layout :: copy3">
+
+</head>
 <body>
-
-
-		<div th:replace="layout :: copy1"></div>
-		<div class="inner-wrapper">
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
 		<div th:replace="layout :: copy2"></div>
-		
-		<section class="content-body"></section>
-		
+
+		<section class="content-body">
+			<section class="panel">
+				<div class="panel-body" style="height: 500px;">
+					<div class="title text-center">
+						<img class="img-fluid" th:src="@{assets/images/Capture.JPG}"
+							alt="">
+						<h3 class="mb-10">Hello to Scrum HD, <span class="name" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></h3>
+						<br><br>
+						<h4>Start manage your workspace !</h4><br><br><br><br>
+							
+							<div class="alert alert-default">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+										<strong>Let's create a project ! </strong><a th:href="@{/CreatePjtBlog(username=${#httpServletRequest.remoteUser})}" class="alert-link"> Click here to start.</a><br>
+									</div>
+					</div>
+				</div>
+			</section>
+		</section>
+
 		<div th:include="layout :: copy4"></div>
 </body>
 </html>

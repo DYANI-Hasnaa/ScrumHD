@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3"></head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<aside id="sidebar-left" class="sidebar-left">
+
+			<div class="sidebar-header">
+				<div class="sidebar-title" style="color: white">Navigation</div>
+				<div class="sidebar-toggle hidden-xs"
+					data-toggle-class="sidebar-left-collapsed" data-target="html"
+					data-fire-event="sidebar-left-toggle">
+					<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				</div>
+			</div>
+			<div class="nano">
+				<div class="nano-content">
+					<nav id="menu" class="nav-main" role="navigation">
+						<ul class="nav nav-main">
+							<li><a th:href="@{/indexAdmin}"><i class="fa fa-home"
+									aria-hidden="true"></i> <span>HomePage</span>
+							</a></li>
+							<li><a th:href="@{/AdminTeam}"><i class="fa fa-table"
+									aria-hidden="true"></i> <span>All Team</span>
+							</a></li>
+							<li class="nav-parent">
+								<a><i class="fa fa-copy" aria-hidden="true"></i><span>Projects</span></a>
+								<ul class="nav nav-children" th:each="b:${listBacklogs}">
+									<li class="nav-parent"><a><span th:text="${b.projectname}"></span></a>
+										<ul class="nav nav-children">
+											<li><a th:href="@{/AdminTeamProjet(projectname=${b.projectname})}">Team</a></li>
+											<li><a th:href="@{/AdminSprints(projectname=${b.projectname})}">All Sprints</a></li>
+											<li><a th:href="@{/AdminItems(projectname=${b.projectname})}">All Items</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<hr class="separator" />
+				</div>
+			</div>
+		</aside>
+	<section class="content-body">
+	
+		<header class="page-header">
+				<h2>All Sprints</h2>
+
+				<div class="right-wrapper pull-right">
+					<ol class="breadcrumbs">
+						<li></li>
+						<li><span>Project / All sprints</span></li>
+					</ol>
+
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						class="fa fa-chevron-left"></i></a>
+				</div>
+			</header>
+
+
+			<section class="panel">
+				<header class="panel-heading">
+					<div class="panel-actions">
+						<a href="#" class="fa fa-caret-down"></a> <a href="#"
+							class="fa fa-times"></a>
+					</div>
+
+					<h2 class="panel-title">All sprints</h2>
+				</header>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped mb-none"
+						id="datatable-editable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Importance</th>
+								<th>Days</th>
+								<th>Requested On</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="gradeX" th:each="i:${listItems}">
+								<td><span th:text="${i.name}" /></td>
+								<td><span th:text="${i.note}" /></td>
+								<td><span th:text="${i.importance}" /></td>
+								<td><span th:text="${i.days}" /></td>
+								<td><span th:text="${i.requestedOn}" /></td>
+								<td><span th:text="${i.status}" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</section>
+	</div>
+	<div th:include="layout :: copy4"></div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3">
+
+</head>
+<body>
+
+    <div th:replace="layout :: copy1"></div>
+    <div class="inner-wrapper">
+        <div th:replace="layout :: copy2"></div>
+
+        <section class="content-body">
+
+            <header class="page-header">
+                <h2>Sprint Board</h2>
+
+                <div class="right-wrapper pull-right">
+                    <ol class="breadcrumbs">
+                        <li></li>
+                        <li><span>Sprint</span></li>
+                    </ol>
+
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i
+                        class="fa fa-chevron-left"></i></a>
+                </div>
+            </header>
+            
+
+            <section class="panel">
+                <div class="panel-body">
+                    <div ng-app="ScrumApp">
+                    
+                        <div>
+                            <div class="flex">
+                                <div class="scrum-board to-do">
+                                    <h2>To do</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsTodo}"  style="background-color: #D8BFD8">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                            <a th:href="@{ItemDo(name=${i.name}, username=${#httpServletRequest.remoteUser})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{ItemIn(name=${i.name}, username=${#httpServletRequest.remoteUser})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{ItemDone(name=${i.name}, username=${#httpServletRequest.remoteUser} )}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="scrum-board in-progress">
+                                    <h2>In progress</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsIn}"  style="background-color: #ffdfbc">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                            <a th:href="@{ItemDo(name=${i.name}, username=${#httpServletRequest.remoteUser})}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{ItemIn(name=${i.name}, username=${#httpServletRequest.remoteUser} )}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{ItemDone(name=${i.name}, username=${#httpServletRequest.remoteUser})}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="scrum-board done">
+                                    <h2>Done</h2>
+                                    <div class="input-group1 overflow"  th:each="i:${listItemsDone}"  style="background-color: #cfffd0">
+                                        <span th:text="${i.name}"/>
+                                        <div class="margin-top-10">
+                                            <a th:href="@{ItemDo(name=${i.name}, username=${#httpServletRequest.remoteUser} )}"><button class="button button-do">To do</button></a>
+                                            <a th:href="@{ItemIn(name=${i.name}, username=${#httpServletRequest.remoteUser})}"><button class="button button-progress">In Progress</button></a>
+                                            <a th:href="@{ItemDone(name=${i.name}, username=${#httpServletRequest.remoteUser} )}"><button class="button button-done">Done</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </section>
+
+        <div th:include="layout :: copy4"></div>
+</body>
+</html>

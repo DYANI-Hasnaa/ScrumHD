@@ -26,12 +26,7 @@
 										<p th:text="${backlog.projectname}"></p>
 									</blockquote>
 
-									<code>Backlog Name</code>
-									<blockquote class="danger">
-										<p th:text="${backlog.backlogname}"></p>
-									</blockquote>
-
-									<code>Backlog Description</code>
+									<code>Project Description</code>
 									<blockquote class="info">
 										<p th:text="${backlog.backlogdescription}"></p>
 									</blockquote>
@@ -47,6 +42,7 @@
 								
 								<div class="panel-footer">
 									 <a th:href="@{/CreateItem(projectname=${backlog.projectname} , username=${#httpServletRequest.remoteUser})}">+ Create New Item</a>
+									 <a class="pull-right" th:href="@{/backlog(projectname=${backlog.projectname} , username=${#httpServletRequest.remoteUser})}">backlog</a>
 								</div>
 								
 					

@@ -1,7 +1,7 @@
 package org.scrum.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +17,13 @@ import javax.validation.constraints.Size;
 @Entity
 public class message implements Serializable {
 	
-	
-
 	@Id
 	@GeneratedValue
 	private Long idMessage;
 	private String contenu;
 	private Date dateSend;	
 	private Long id_user;
+	private Long id_backlog;
 	private Long id_productOwner;
 	@Enumerated(EnumType.STRING)
 	private Role sender;
@@ -46,8 +45,17 @@ public class message implements Serializable {
 	}
 	
 	
-	
-	
+	public message(String contenu, Date date, Long id_user, Long id_backlog, Long id_productOwner, Role sender,
+			int typeSender) {
+		super();
+		this.contenu = contenu;
+		this.dateSend = date;
+		this.id_user = id_user;
+		this.id_backlog = id_backlog;
+		this.id_productOwner = id_productOwner;
+		this.sender = sender;
+		this.typeSender = typeSender;
+	}
 	public message(String contenu, Date dateSend, Long id_user, Long id_productOwner, Role sender, int typeSender) {
 		super();
 		this.contenu = contenu;
@@ -110,9 +118,13 @@ public class message implements Serializable {
 	public void setId_productOwner(Long id_productOwner) {
 		this.id_productOwner = id_productOwner;
 	}
-	
-	
-	
+	public Long getId_backlog() {
+		return id_backlog;
+	}
+	public void setId_backlog(Long id_backlog) {
+		this.id_backlog = id_backlog;
+	}
 	
 
 }
+

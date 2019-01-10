@@ -1,18 +1,11 @@
 package org.scrum.web;
 
 import java.security.Principal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
-
-import org.scrum.ScrumApplication;
 import org.scrum.dao.BacklogRepository;
 import org.scrum.dao.MessageRepository;
 import org.scrum.dao.UserRepository;
@@ -21,9 +14,6 @@ import org.scrum.entities.backlog;
 import org.scrum.entities.message;
 import org.scrum.entities.user;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,16 +30,19 @@ public class UserController {
 	@Autowired
 	private BacklogRepository br;
 	
-	
 	@Autowired
 	private MessageRepository mr;
+	
 
 	@RequestMapping(value="/")
 	public String home() {
 		return "redirect:/index";
 	}
 	
-	
+	@RequestMapping(value="/scrum")
+	public String homePage() {
+		return "homePage";
+	}
 
 	public void projects(Model model, String username) {
 		Set<backlog> backlogs=br.FindByUser(username);
@@ -57,20 +50,22 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/index")
-	public String index(Model model, Principal principal) {
+	public String index(Model model,Model modell, Principal principal) {
 		String username = principal.getName();
 		this.projects(model,username);
 		user u=ur.FindByUsername(username);
 		
 		if(u.getRole()==Role.client)
 		{
+			Set<backlog> backlogs=br.FindByUser(username);
+			modell.addAttribute("Backlogs", backlogs);
 			return "indexClient";
 		}
-		else 
+		else if(u.getRole()==Role.administrateur) {
+			return "indexAdmin";
 			
-			return "index";
+		}else return "index";
 	}
-	
 	@RequestMapping(value="/403")
 	public String accessDneied() {
 		return "403";
@@ -78,6 +73,7 @@ public class UserController {
 	
 	@RequestMapping(value="/signin")
 	public String signin() {
+		
 		return "signin";
 	}
 	
@@ -129,46 +125,56 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/discution")
-	public String discution(Model model, Model mod, String username) {
+	@RequestMapping(value="/discutionPO")
+	public String discutionPO(Model model, Model mo, String projectname,Principal principal) {
+		String username = principal.getName();
+		this.projects(model, username);
+		backlog b = br.FindByProjectname(projectname);
+		Set<message> messages= mr.FindMessageByPO(b.getIdBacklog());
+	    model.addAttribute("listMessages", messages);
+	    backlog b1 = br.FindByProjectname(projectname);
+		mo.addAttribute("pjt", b1);
+		return "discutionPO";
+		
+	}
+	
+	@RequestMapping(value="/discutionC")
+	public String discutionC(Model model,Model mo, Model mod, String username, String projectname) {
 		
 		user u=ur.FindByUsername(username);
-		
 		Set<message> messages= mr.FindMessageById(u.getId());
-		
 	    model.addAttribute("listMessages", messages);
-	    
-	    //mod.addAttribute("role", u.getRole());
-		
+	    backlog b = br.FindByProjectname(projectname);
+		mo.addAttribute("pjt", b);
 		return "discution";
 		
 	}
 	
-	
 	@RequestMapping(value="/SendMessage", method=RequestMethod.POST)
-	public String SendMessage(Model model,String username, @Valid message message, BindingResult bindingResult) {
+	public String SendMessage(Model model,String username, @Valid message message, BindingResult bindingResult, String projectname) {
 		
-		Set<backlog> b = br.FindByUser(username);
-		
-		System.out.println("username du client:"+username);
-		
-		user u = ur.FindPo();
 		
 		user u1=ur.FindByUsername(username);
-		
-		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		
+		Date date = new Date();
 		int type;
-		
-		if(u1.getRole()==Role.client)
+		if(u1.getRole()==Role.client) {
 			type=1;
-		else 
+				user u = ur.FindPo(projectname);
+				user u2 = ur.FindC(projectname);
+				backlog backlog = br.FindByProjectname(projectname);
+				mr.save(new message(message.getContenu(), date , u2.getId(), backlog.getIdBacklog(), u.getId(), u1.getRole(), type));
+			return "redirect:/discutionC?username="+username+"&projectname="+projectname;
+		}
+		else {
 			type=0;
+			user u = ur.FindPo(projectname);
+			user u2 = ur.FindC(projectname);
+			backlog backlog = br.FindByProjectname(projectname);
+			mr.save(new message(message.getContenu(), date , u2.getId(),backlog.getIdBacklog(), u.getId(), u1.getRole(), type));
 		
-		mr.save(new message(message.getContenu(), date , u1.getId(), u.getId(), u1.getRole(), type));
+		return "redirect:/discutionPO?projectname="+projectname;
 		
-		return "redirect:/discution?username="+username;
-		
+		}
 	}
 
 	

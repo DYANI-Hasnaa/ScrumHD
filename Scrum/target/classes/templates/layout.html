@@ -17,7 +17,7 @@
 <link
 	href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light"
 	rel="stylesheet" type="text/css">
-
+	
 	<link rel="stylesheet" href="../static/assets/vendor/pnotify/pnotify.custom.css" />
 <!-- Vendor CSS -->
 <link rel="stylesheet"
@@ -51,7 +51,7 @@
 <script src="../static/assets/vendor/modernizr/modernizr.js"
 	th:src="@{assets/vendor/modernizr/modernizr.js}"></script>
 	
-	<style>
+<style>
 .button {
     display: inline-block;
     padding: 10px;
@@ -151,8 +151,6 @@
     margin-top: 10px;
 }
 </style>
-
-
 <style type="text/css">
 
 .container{max-width:1170px; margin:auto;}
@@ -292,11 +290,6 @@ img{ max-width:100%;}
 }
 
 </style>
-
-
-
-
-
 
 </head>
 <body>
@@ -445,11 +438,8 @@ img{ max-width:100%;}
 								<li><a href="#"> <i class="fa fa-align-left"
 										aria-hidden="true"></i> <span>Dashboard</span>
 								</a></li>
-								<li><a href="#"> <span
-										class="pull-right label label-primary"></span> <i
-										class="fa fa-envelope" aria-hidden="true"></i> <span>Mailbox</span>
-								</a></li>
-								<li><a href="#"> <i class="fa fa-check-square-o"
+								
+								<li><a th:href="@{MyTasks(username=${#httpServletRequest.remoteUser})}"> <i class="fa fa-check-square-o"
 										aria-hidden="true"></i> <span>My tasks</span>
 								</a></li>
 								<li><a href="#"> <i class="fa fa-clipboard"
@@ -470,12 +460,16 @@ img{ max-width:100%;}
 									<li><a  th:text="${b.projectname}"  th:href="@{showProject(projectname=${b.projectname}, username=${#httpServletRequest.remoteUser})}" />	
 									</li>
 									<a  th:href="@{AllSprints(projectname=${b.projectname}, username=${#httpServletRequest.remoteUser})}" style="color: white; margin-left: 15%;" > All Sprints </a>
+									<a  th:href="@{Allitems(projectname=${b.projectname}, username=${#httpServletRequest.remoteUser})}" style="color: white; margin-left: 15%;" > All Items </a>
+									<li> <a th:href="@{/discutionPO(projectname=${b.projectname})}"> <span
+										class="pull-right label label-primary"></span> <i
+										class="fa fa-envelope" aria-hidden="true"></i> <span>Mailbox/ClientContact</span>
+								</a></li>
 								</ul>
 							</div>
 							<a th:href="@{/CreatePjtBlog(username=${#httpServletRequest.remoteUser})}">+ create new project</a>
 							<br>
 							<a th:href="@{/AddTeam1(username=${#httpServletRequest.remoteUser})}">+ add team members</a>
-						
 							
 						</div>
 					</div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3"></head>
+<body>
+
+
+		<div th:replace="layout :: copy1"></div>
+		<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
+		
+		<section class="content-body">
+		
+		<div class="container">
+<h3 class=" text-center">Messaging</h3>
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="mesgs">
+          <div class="msg_history">
+          
+          <div  th:each="i:${listMessages}" >
+          
+          <div  th:switch="${i.typeSender}">
+          
+                 <div  th:case="'0'" >  
+		            <div class="incoming_msg" >
+		              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+		              <div class="received_msg">
+		                <div class="received_withd_msg">
+		                  <p th:text="${i.contenu}" ></p>
+		                  <span class="time_date" th:text="${i.dateSend}"></span></div>
+		              </div>
+		            </div>
+		          </div>
+		     
+            
+                 <div  th:case="*" >  
+		            <div class="outgoing_msg">
+		              <div class="sent_msg">
+		                <p th:text="${i.contenu}" ></p>
+		                <span class="time_date" th:text="${i.dateSend}"></span> </div>
+		            </div>
+		         </div> 
+		         
+		    </div>  
+		            
+		  </div>
+            
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+            <form th:action="@{/SendMessage(username=${#httpServletRequest.remoteUser}, projectname=${pjt.projectname})}" method="post"  >
+              <input type="text" class="write_msg" name="contenu" placeholder="Type a message" />
+              <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div></div>
+		
+		</section>
+		
+		<div th:include="layout :: copy4"></div>
+</body>
+</html>

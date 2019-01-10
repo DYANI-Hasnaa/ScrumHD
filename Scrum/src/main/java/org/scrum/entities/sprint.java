@@ -27,9 +27,8 @@ public class sprint implements Serializable {
 	@NonNull
 	private String descriptionsprint;
 	
+	private String point;
 	
-	
-
 	@NonNull
 	private Date requestedOnsprint;
 	private Date validatedOnsprint;
@@ -52,6 +51,27 @@ public class sprint implements Serializable {
 
 
 	public void setBacklog(backlog backlog) {
+		this.backlog = backlog;
+	}
+
+
+
+	public sprint(String namesprint, String point) {
+		super();
+		this.namesprint = namesprint;
+		this.point = point;
+	}
+
+
+
+	public sprint(String namesprint, String descriptionsprint, String point, Date requestedOnsprint,
+			String statussprint, org.scrum.entities.backlog backlog) {
+		super();
+		this.namesprint = namesprint;
+		this.descriptionsprint = descriptionsprint;
+		this.point = point;
+		this.requestedOnsprint = requestedOnsprint;
+		this.statussprint = statussprint;
 		this.backlog = backlog;
 	}
 
@@ -195,6 +215,18 @@ public class sprint implements Serializable {
 
 	public void setItems(Collection<Item> items) {
 		this.items = items;
+	}
+
+
+
+	public String getPoint() {
+		return point;
+	}
+
+
+
+	public void setPoint(String point) {
+		this.point = point;
 	}
 	
 	

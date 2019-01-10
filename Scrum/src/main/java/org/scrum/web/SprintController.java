@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.scrum.dao.BacklogRepository;
 import org.scrum.dao.ItemRepository;
 import org.scrum.dao.SprintRepository;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,7 +57,7 @@ public class SprintController {
 		if(bindingResult.hasErrors())
 			return "CreateSprint";
 		
-		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
+		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getPoint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
 	    
 	    mod.addAttribute("backlog", backlog);
 		
@@ -77,7 +74,7 @@ public class SprintController {
 		if(bindingResult.hasErrors())
 			return "CreateSprint";
 		
-		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
+		sr.save(new sprint(sprint.getNamesprint(), sprint.getDescriptionsprint(), sprint.getPoint() , sprint.getRequestedOnsprint(), sprint.getStatussprint(), backlog));
 		
 		Optional<backlog> b = br.findById(backlog.getIdBacklog());
 		
@@ -237,6 +234,7 @@ public class SprintController {
 		s.get().setNamesprint(sprint.getNamesprint());
 		s.get().setRequestedOnsprint(sprint.getRequestedOnsprint());
 		s.get().setStatussprint(sprint.getStatussprint());
+		s.get().setPoint(sprint.getPoint());
 		s.get().setBacklog(backlog);
 		sr.save(s.get());
 		

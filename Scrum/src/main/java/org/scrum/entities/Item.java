@@ -33,10 +33,15 @@ public class Item implements Serializable{
 	@NonNull
 	private String status;
 	
+	private String affect;
+	
 	@ManyToOne
 	@JoinColumn(name="idSprint")
 	private sprint sprint;
 	
+	@ManyToOne
+	@JoinColumn(name="id")
+	private user user;
 
 	@ManyToOne
 	@JoinColumn(name="idBacklog")
@@ -174,10 +179,25 @@ public class Item implements Serializable{
 		this.sprint = sprint;
 		this.backlog = backlog;
 	}
-	
-	
 
-	
 
+	public user getUser() {
+		return user;
+	}
+
+
+	public void setUser(user user) {
+		this.user = user;
+	}
+
+
+	public String getAffect() {
+		return affect;
+	}
+
+
+	public void setAffect(String affect) {
+		this.affect = affect;
+	}
 	
 }

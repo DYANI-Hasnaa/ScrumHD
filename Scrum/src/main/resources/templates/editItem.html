@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="fixed">
+
+	<head th:include="layout :: copy3"></head>
+	
+	<body>
+	
+				<div th:replace="layout :: copy1"></div>
+				<div th:replace="layout :: copy2"></div>
+					
+				<section class="content-body">
+
+				<header class="page-header">
+					<h2>Create Item</h2>
+	
+					<div class="right-wrapper pull-right">
+						<ol class="breadcrumbs">
+							<li></li>
+							<li><span>edit Item</span></li>
+						</ol>
+	
+						<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+					</div>
+				</header>
+
+			<div class="row" style="margin-left: 14%; margin-top: 10%; width: 100%;">
+				<div class="col-md-8 col-lg-9">
+
+				
+						
+							<form th:action="@{/editItemItem}" id="summary-form" class="form-horizontal"  method="post">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+
+										<h2 class="panel-title">Item</h2>
+										
+									</header>
+									<div class="panel-body">
+										<div class="validation-message">
+											<ul></ul>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Item Name <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="text" name="name" class="form-control" th:value="${item.name}" placeholder="name" required/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Item Description <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<textarea rows="5" name="note" class="form-control" placeholder="note" required>[[${item.note}]]</textarea>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Days <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="number" name="days" class="form-control" th:value="${item.days}" placeholder="days" required/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Importance <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="number" name="importance" class="form-control" th:value="${item.importance}" placeholder="importance" required/>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"> Requested On  <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<input type="date" name="requestedOn" class="form-control" th:value="${item.requestedOn}" placeholder="requested On" />
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Status <span class="required">*</span></label>
+											<div class="col-sm-9">
+												<select name="status" class="form-control" th:value="${item.status}" placeholder="status">
+													  <option>To do</option>
+													  <option>Done</option>
+													  <option>In progress</option>
+												</select>
+											</div>
+										</div>
+										<input type="hidden" name="idBacklog" th:value="${backlog.idBacklog}" />
+										<input type="hidden" name="idItem" th:value="${item.idItem}" />
+										<input type="hidden" name="username" th:value="${#httpServletRequest.remoteUser}"/>
+									</div>
+									
+									
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-primary" name="btns2">Update</button>
+												<button type="reset" class="btn btn-default">Reset</button>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+						
+							
+							
+				</div>
+				</div>
+				</section>
+				
+			
+				<div th:include="layout :: copy4"></div>
+			
+	</body>
+</html>

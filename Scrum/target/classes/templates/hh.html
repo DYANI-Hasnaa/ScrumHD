@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>This example shows jqxChart binding to MySQL using Spring
+	Web MVC.</title>
+<link type="text/css" rel="stylesheet"
+	href="../static/assets/vendor/chart/jqx.base.css"
+	th:href="@{assets/vendor/chart/jqx.base.css}" />
+<style type="text/css">
+.labels {
+	font-size: smaller;
+}
+</style>
+<script type="text/javascript"
+	src="../static/assets/vendor/jquery/jquery.js"
+	th:src="@{assets/vendor/jquery/jquery.js}"></script>
+<script type="text/javascript"
+	src="../static/assets/vendor/chart/jqxcore.js"
+	th:src="@{assets/vendor/chart/jqxcore.js}" /></script>
+<script type="text/javascript"
+	src="../static/assets/assets/vendor/chart/jqxdata.js"
+	th:src="@{assets/vendor/chart/jqxdata.js}"></script>
+<script type="text/javascript"
+	src="../static/assets/vendor/chart/jqxdraw.js"
+	th:src="@{assets/vendor/chart/jqxdraw.js}"></script>
+<script type="text/javascript"
+	src="../static/assets/vendor/chart/jqxchart.core.js"
+	th:src="@{assets/vendor/chart/jqxchart.core.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+        $(document).ready(
+            function () {
+                var source = {
+                    datatype: "json",
+                    datafields: [{
+                        name: 'namesprint',
+                        type: 'string'
+                    }, {
+                        name: 'point',
+                        type: 'int'
+                    }],
+                    url: /*[[@{/chart/getProducts}]]*/ '/chart/getProducts',
+                    type: 'GET',
+                    async: true
+                };
+                var dataAdapter = new $.jqx.dataAdapter(source);
+                var settings = {
+                    title: "Availability of Products",
+                    description: "in Category 1",
+                    padding: {
+                        left: 5,
+                        top: 5,
+                        right: 15,
+                        bottom: 5
+                    },
+                    titlePadding: {
+                        left: 90,
+                        top: 0,
+                        right: 0,
+                        bottom: 10
+                    },
+                    source: dataAdapter,
+                    xAxis: {
+                        dataField: 'namesprint',
+                        displayText: 'Product Name',
+                        gridLines: {
+                            visible: true
+                        },
+                        valuesOnTicks: false,
+                        type: 'basic',
+                        labels: {
+                            class: 'labels',
+                            angle: 90,
+                            formatFunction: function (value) {
+                                return value.replace(/\?/g, '');
+                            }
+                        },
+                        flip: false
+                    },
+                    colorScheme: 'scheme01',
+                    seriesGroups: [{
+                        type: 'column',
+                        columnsGapPercent: 30,
+                        seriesGapPercent: 0,
+                        orientation: 'horizontal',
+                        valueAxis: {
+                            minValue: 0,
+                            unitInterval: 10,
+                            description: 'Units in Stock',
+                            flip: true
+                        },
+                        series: [{
+                            dataField: 'point',
+                            displayText: 'Units in Stock'
+                        }]
+                    }]
+                };
+                $('#chartContainer').jqxChart(settings);
+            });
+        /*]]>*/
+    </script>
+</head>
+<body>
+	<div id='chartContainer'
+		style="width: 860px; height: 600px; margin-bottom: 25px;"></div>
+</body>
+</html>

@@ -1,8 +1,8 @@
 package org.scrum.web;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -18,7 +18,9 @@ import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 
 import org.scrum.dao.BacklogRepository;
+import org.scrum.dao.ItemRepository;
 import org.scrum.dao.UserRepository;
+import org.scrum.entities.Item;
 import org.scrum.entities.backlog;
 import org.scrum.entities.user;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TeamController {
@@ -36,6 +39,8 @@ public class TeamController {
     @Autowired
     private BacklogRepository br;
     
+    @Autowired
+    private ItemRepository it;
 
     public void projects(Model model, String username) {
 		Set<backlog> backlogs=br.FindByUser(username);
@@ -62,16 +67,16 @@ public class TeamController {
           
            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
               protected PasswordAuthentication getPasswordAuthentication() {
-                 return new PasswordAuthentication("meriem.larhouti@gmail.com","");
+                 return new PasswordAuthentication("test@gmail.com","****");
               }
            });
            Message msg = new MimeMessage(session);
-           msg.setFrom(new InternetAddress("meriem.larhouti@gmail.com", false));
+           msg.setFrom(new InternetAddress("test@gmail.com",false));
 
            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
            msg.setSubject("Member of Scrum HD");
            msg.setContent("U are memeber of "+projectname+" As "+role+" u can access by clicking the link bellow :"
-           		+ "\n http://localhost:8088/inviteTeam?email="+email ,"text/html");
+           		+ "\n http://localhost:8086/inviteTeam?email="+email ,"text/html");
            msg.setSentDate(new Date());
 
            Transport.send(msg);
@@ -91,7 +96,7 @@ public class TeamController {
     public String sendEmail(Model model, String email, String projectname, String role, @Valid user user)throws AddressException, MessagingException, IOException{
     	String username = user.getUsername();
     	this.projects(model, username);
-    	//sendmail(email, projectname, role);
+    	sendmail(email, projectname, role);
     	
     	Set<backlog> b=br.FindByProjectnameBacklogs(projectname);
     	for (backlog a : b) {
@@ -102,10 +107,10 @@ public class TeamController {
     }
     
     @RequestMapping(value = "/sendemail", params = "btns1", method=RequestMethod.POST)
-    public String sendEmail1(Model model, String email, String projectname, String role, @Valid user user)throws AddressException, MessagingException, IOException{
+    public String sendEmail1(Model model, String email, String projectname, String role, @Valid user user , Principal principal)throws AddressException, MessagingException, IOException{
     	String username = user.getUsername();
     	this.projects(model, username);
-    	//sendmail(email, projectname, role);
+    	sendmail(email, projectname, role);
     	
     	Set<backlog> b=br.FindByProjectnameBacklogs(projectname);
     	for (backlog a : b) {
@@ -113,7 +118,62 @@ public class TeamController {
 			br.save(a);
 		}
     	
-       return "redirect:/AddTeam1";
+    	String username1 = principal.getName();
+    	
+       return "redirect:/AddTeam1?username="+username1;
     }
     
+    @RequestMapping(value="/MyTasks", method=RequestMethod.GET)
+	public String MyTasks(Model model,Model modell,Model modelll,String username) {
+		
+		this.projects(model, username);
+		user user = ur.FindByUsername(username);
+		
+		List<Item> itemsTodo=(List<Item>) it.findAllitemTodo(user);
+	    modelll.addAttribute("listItemsTodo", itemsTodo);
+		List<Item> itemsIn=(List<Item>) it.findAllitemIn(user);
+	    modelll.addAttribute("listItemsIn", itemsIn);
+		List<Item> itemsDone=(List<Item>) it.findAllitemDone(user);
+	    modelll.addAttribute("listItemsDone", itemsDone);
+		
+	    
+		return "MyTasks";
+		
+	}
+    
+    @RequestMapping(value="/ItemDo", method=RequestMethod.GET)
+	public String ItemDo(Model model, String name , String username,RedirectAttributes redirAttrs) {
+		
+		Item i=it.FindByItemName(name);
+		String status = "To do";
+		i.setStatus(status);
+		it.save(i);
+		return "redirect:/MyTasks?username="+username;
+		
+	}
+	
+	
+	@RequestMapping(value="/ItemIn", method=RequestMethod.GET)
+	public String ItemIn(String name , String username) {
+		
+		Item i=it.FindByItemName(name);
+		String status = "In progress";
+		i.setStatus(status);
+		it.save(i);
+		
+		return "redirect:/MyTasks?username="+username;
+		
+	}
+	
+	@RequestMapping(value="/ItemDone", method=RequestMethod.GET)
+	public String ItemDone(String name , String username) {
+		
+		Item i=it.FindByItemName(name);
+		String status = "Done";
+		i.setStatus(status);
+		it.save(i);
+		
+		return "redirect:/MyTasks?username="+username;
+		
+	}
 }

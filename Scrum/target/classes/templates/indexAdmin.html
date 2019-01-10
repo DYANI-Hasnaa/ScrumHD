@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3"></head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<aside id="sidebar-left" class="sidebar-left">
+
+			<div class="sidebar-header">
+				<div class="sidebar-title" style="color: white">Navigation</div>
+				<div class="sidebar-toggle hidden-xs"
+					data-toggle-class="sidebar-left-collapsed" data-target="html"
+					data-fire-event="sidebar-left-toggle">
+					<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				</div>
+			</div>
+			<div class="nano">
+				<div class="nano-content">
+					<nav id="menu" class="nav-main" role="navigation">
+						<ul class="nav nav-main">
+							<li><a th:href="@{/indexAdmin}"> <i class="fa fa-home"
+									aria-hidden="true"></i> <span>HomePage</span>
+							</a></li>
+							<li><a th:href="@{/AdminTeam}"><i class="fa fa-table"
+									aria-hidden="true"></i> <span>All Team</span>
+							</a></li>
+							<li class="nav-parent">
+								<a><i class="fa fa-copy" aria-hidden="true"></i><span>Projects</span></a>
+								<ul class="nav nav-children" th:each="b:${listBacklogs}">
+									<li class="nav-parent"><a><span th:text="${b.projectname}"></span></a>
+										<ul class="nav nav-children">
+											<li><a th:href="@{/AdminTeamProjet(projectname=${b.projectname})}">Team</a></li>
+											<li><a th:href="@{/AdminSprints(projectname=${b.projectname})}">All Sprints</a></li>
+											<li><a th:href="@{/AdminItems(projectname=${b.projectname})}">All Items</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<hr class="separator" />
+				</div>
+			</div>
+		</aside>
+	<section class="content-body">
+	
+		<section class="panel">
+				<div class="panel-body" style="height: 500px;">
+					<div class="title text-center">
+						<img class="img-fluid" th:src="@{assets/images/Capture.JPG}"
+							alt="">
+						<h3 class="mb-10">Hello to Scrum HD, <span class="name" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></h3>
+						<br><br>
+						<h4>Start manage your workspace !</h4><br><br><br><br>
+					</div>
+				</div>
+			</section>
+	
+	</section>
+	<div th:include="layout :: copy4"></div>
+</body>
+</html>

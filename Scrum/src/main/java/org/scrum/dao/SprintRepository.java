@@ -15,4 +15,7 @@ public interface SprintRepository extends JpaRepository<sprint, Long>{
 	
 	@Query("select s from sprint s where s.backlog=:backlog")
 	public List<sprint> FindSprintByBacklog(@Param("backlog")backlog backlog);
+	
+	@Query("select s.namesprint, s.point from sprint s")
+	public List<sprint> FindSprint();
 }

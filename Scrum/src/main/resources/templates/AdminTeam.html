@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3"></head>
+<body>
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<aside id="sidebar-left" class="sidebar-left">
+
+			<div class="sidebar-header">
+				<div class="sidebar-title" style="color: white">Navigation</div>
+				<div class="sidebar-toggle hidden-xs"
+					data-toggle-class="sidebar-left-collapsed" data-target="html"
+					data-fire-event="sidebar-left-toggle">
+					<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				</div>
+			</div>
+			<div class="nano">
+				<div class="nano-content">
+					<nav id="menu" class="nav-main" role="navigation">
+						<ul class="nav nav-main">
+							<li><a th:href="@{/indexAdmin}"><i class="fa fa-home"
+									aria-hidden="true"></i> <span>HomePage</span>
+							</a></li>
+							<li><a th:href="@{/AdminTeam}"><i class="fa fa-table"
+									aria-hidden="true"></i> <span>All Team</span>
+							</a></li>
+							<li class="nav-parent">
+								<a><i class="fa fa-copy" aria-hidden="true"></i><span>Projects</span></a>
+								<ul class="nav nav-children" th:each="b:${listBacklogs}">
+									<li class="nav-parent"><a><span th:text="${b.projectname}"></span></a>
+										<ul class="nav nav-children">
+											<li><a th:href="@{/AdminTeamProjet(projectname=${b.projectname})}">Team</a></li>
+											<li><a th:href="@{/AdminSprints(projectname=${b.projectname})}">All Sprints</a></li>
+											<li><a th:href="@{/AdminItems(projectname=${b.projectname})}">All Items</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+					<hr class="separator" />
+				</div>
+			</div>
+		</aside>
+	<section class="content-body">
+	
+		<header class="page-header">
+						<h2>Tables</h2>
+					
+						<div class="right-wrapper pull-right">
+							<ol class="breadcrumbs">
+								<li>
+									<a href="index.html">
+										<i class="fa fa-home"></i>
+									</a>
+								</li>
+								<li><span>Tables</span></li>
+							</ol>
+					
+							<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+						</div>
+					</header>
+
+					<!-- start: page -->
+						<div class="row">
+							<div class="col-md-6">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+						
+										<h2 class="panel-title">Product Owner</h2>
+									</header>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table mb-none">
+												<thead>
+													<tr>
+														<th>First Name</th>
+														<th>Last Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="i:${listPO}">
+														<td><span th:text="${i.prenom}" /></td>
+														<td><span th:text="${i.nom}" /></td>
+														<td><span th:text="${i.email}" /></td>
+														<td><span th:text="${i.tel}" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</section>
+							</div>
+							<div class="col-md-6">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+						
+										<h2 class="panel-title">Team member</h2>
+									</header>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table table-striped mb-none">
+												<thead>
+													<tr>
+														<th>First Name</th>
+														<th>Last Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="i:${listM}">
+														<td><span th:text="${i.prenom}" /></td>
+														<td><span th:text="${i.nom}" /></td>
+														<td><span th:text="${i.email}" /></td>
+														<td><span th:text="${i.tel}" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+						
+										<h2 class="panel-title">Scrum Master</h2>
+									</header>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table table-bordered mb-none">
+												<thead>
+													<tr>
+														<th>First Name</th>
+														<th>Last Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="i:${listSM}">
+														<td><span th:text="${i.prenom}" /></td>
+														<td><span th:text="${i.nom}" /></td>
+														<td><span th:text="${i.email}" /></td>
+														<td><span th:text="${i.tel}" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</section>
+							</div>
+							<div class="col-md-6">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<a href="#" class="fa fa-times"></a>
+										</div>
+						
+										<h2 class="panel-title">Client</h2>
+									</header>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table table-hover mb-none">
+												<thead>
+													<tr>
+														<th>First Name</th>
+														<th>Last Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="i:${listCL}">
+														<td><span th:text="${i.prenom}" /></td>
+														<td><span th:text="${i.nom}" /></td>
+														<td><span th:text="${i.email}" /></td>
+														<td><span th:text="${i.tel}" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+						
+	
+	</section>
+	<div th:include="layout :: copy4"></div>
+</body>
+</html>

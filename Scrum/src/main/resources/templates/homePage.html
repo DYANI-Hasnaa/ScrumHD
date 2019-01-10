@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Favicon-->
+<link rel="shortcut icon" href="img/fav.png">
+<!-- Author Meta -->
+<meta name="author" content="codepixer">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
+<meta charset="UTF-8">
+<!-- Site Title -->
+<title>Scrum HD</title>
+
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700}"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="../static/assets/vendor/font-awesome/css/font-awesome.css"
+	th:href="@{assets/vendor/font-awesome/css/font-awesome.css}" />
+<link rel="stylesheet" th:href="@{assets/home/linearicons.css}">
+<link rel="stylesheet" th:href="@{assets/home/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{assets/home/bootstrap.css}">
+<link rel="stylesheet" th:href="@{assets/home/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{assets/home/nice-select.css}">
+<link rel="stylesheet" th:href="@{assets/home/animate.min.css}">
+<link rel="stylesheet" th:href="@{assets/home/owl.carousel.css}">
+<link rel="stylesheet" th:href="@{assets/home/main.css}">
+</head>
+<body>
+
+
+
+	<header id="header">
+		<div class="container">
+			<div class="row align-items-center justify-content-between d-flex">
+				<div id="logo">
+					<a href="#"><img th:src="@{assets/images/logo.png}" height="50" alt="" title="" /></a>
+				</div>
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						<li class="menu-active"><a href="#home">Home</a></li>
+						<li><a href="#service">Services</a></li>
+						<li><a class="ticker-btn" th:href="@{/signin}">Get Started</a></li>
+					</ul>
+				</nav>
+				<!-- #nav-menu-container -->
+			</div>
+		</div>
+	</header>
+	<!-- #header -->
+
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div
+				class="row fullscreen d-flex align-items-center justify-content-center">
+				<div class="banner-content col-lg-8">
+					<h1 class="text-white">Free time for work that really matters</h1>
+					<p class="pt-20 pb-20 text-white">Scrum HD is the work management platform that teams use to stay focused on the goals, projects and daily tasks involved in business development.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- Start feature Area -->
+	<section class="feature-area pb-100" id="service">
+		<div class="container">
+			<div class="row mockup-container">
+				<img class="mx-auto d-block img-fluid" th:src="@{assets/home/laptop.png}" alt="">
+			</div>
+			<div class="row d-flex justify-content-center">
+				<div class="menu-content pt-100 pb-60 col-lg-10">
+					<div class="title text-center">
+						<h1 class="mb-10">Gagnez en efficacité</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="single-feature">
+						<span class="fa fa-desktop fa-3x"></span>
+						<h4>Organisez votre travail</h4>
+						<p>Planifiez et structurez votre travail de la façon qui vous
+							convient le mieux. Définissez des priorités et des délais.
+							Partagez des détails et attribuez des tâches. Tout cela depuis un
+							seul endroit.</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="single-feature">
+						<span class="fa fa-code fa-3x"></span>
+						<h4>Faites avancer le projet</h4>
+						<p>Suivez chaque étape de vos projets et de vos tâches. Vous
+							savez toujours où vous en êtes, et aidez les autres à garder le
+							cap sur les objectifs.</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="single-feature">
+						<span class="fa fa-clock-o fa-3x"></span>
+						<h4>Tenez les délais</h4>
+						<p>Créez des plans de projet graphiques pour visualiser la
+							planification de chaque étape. Identifiez les risques et éliminez
+							les obstacles, même lorsque des changements sont nécessaires.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End feature Area -->
+	
+	<!-- Start callto-action Area -->
+	<section class="callto-action-area relative section-gap">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="menu-content col-lg-9">
+					<div class="title text-center">
+						<h1 class="mb-10 text-white">" Nous utilisons Scrum HD pour
+							suivre tous les travaux créatifs et nous assurer qu’ils sont
+							prêts à temps."</h1>
+						<p class="text-white">Directeur de la création</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End calto-action Area -->
+
+
+	<!-- Start latest-blog Area -->
+	<section class="latest-blog-area section-gap" id="blog">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="menu-content pb-60 col-lg-8">
+					<div class="title text-center">
+						<h1 class="mb-10">Scrum HD est gratuit, souple et c'est un
+							moyen visuel d'organiser ce que vous voulez avec qui vous voulez.</h1>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 single-blog">
+					<img class="img-fluid" th:src="@{assets/home/b1.png}" alt="">
+					<ul class="tags"></ul>
+					<a href="#"><h4>Regardez comment votre équipe peut
+							structurer son travail pour transformer tous les objectifs en
+							plans d’action concrets.</h4></a>
+
+				</div>
+				<div class="col-lg-6 single-blog">
+					<img class="img-fluid" th:src="@{assets/home/b2.png}" alt="">
+					<ul class="tags"></ul>
+					<a href="#"><h4>Suivez le statut de tous vos projets en
+							temps réel, pour maintenir les initiatives clés en bonne voie et
+							tenir votre équipe informée sur la progression.</h4></a>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End latest-blog Area -->
+
+
+	<!-- start footer Area -->
+	<footer class="footer-area section-gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6>Scrum HD</h6>
+						<p>Oubliez les notes auto-collantes, les tableurs, e-mails et
+							autres logiciels compliqués pour la gestion de vos projets et
+							devenez l'un des millions d'utilisateurs tombés amoureux de Scrum
+							HD.</p>
+						<p class="footer-text">
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright &copy;
+							<script>
+								document.write(new Date().getFullYear());
+							</script>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-5  col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6>Newsletter</h6>
+						<p>Stay update with our latest</p>
+						<div class="" id="mc_embed_signup">
+							<form target="_blank" novalidate="true"
+								method="get" class="form-inline">
+								<input class="form-control" name="EMAIL"
+									placeholder="Enter Email" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Enter Email '" required=""
+									type="email">
+								<button class="click-btn btn btn-default">
+									<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+								</button>
+								<div style="position: absolute; left: -5000px;">
+									<input name="b_36c4fd991d266f23781ded980_aefe40901a"
+										tabindex="-1" value="" type="text">
+								</div>
+
+								<div class="info"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+					<div class="single-footer-widget">
+						<h6>Follow Us</h6>
+						<p>Let us be social</p>
+						<div class="footer-social d-flex align-items-center">
+							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a> <a href="#"><i
+								class="fa fa-dribbble"></i></a> <a href="#"><i
+								class="fa fa-behance"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End footer Area -->
+
+
+	<script th:src="@{assets/home/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{assets/home/main.js}"></script>
+</body>
+</html>
+
+
+

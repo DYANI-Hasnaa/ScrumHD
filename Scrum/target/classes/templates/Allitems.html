@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head th:include="layout :: copy3">
+
+<link rel="stylesheet" th:href="@{assets/vendor/select2/select2.css}" />
+<link rel="stylesheet"
+	th:href="@{assets/vendor/jquery-datatables-bs3/assets/css/datatables.css}" />
+
+</head>
+<body>
+
+
+	<div th:replace="layout :: copy1"></div>
+	<div class="inner-wrapper">
+		<div th:replace="layout :: copy2"></div>
+
+		<section class="content-body">
+
+			<header class="page-header">
+				<h2>All Items</h2>
+
+				<div class="right-wrapper pull-right">
+					<ol class="breadcrumbs">
+						<li></li>
+						<li><span>Project / All items</span></li>
+					</ol>
+
+					<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						class="fa fa-chevron-left"></i></a>
+				</div>
+			</header>
+
+
+			<section class="panel">
+				<header class="panel-heading">
+					<div class="panel-actions">
+						<a href="#" class="fa fa-caret-down"></a> <a href="#"
+							class="fa fa-times"></a>
+					</div>
+
+					<h2 class="panel-title">All items</h2>
+				</header>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="mb-md">
+								<a
+									th:href="@{CreateItem(projectname=${backlog.projectname}, username=${#httpServletRequest.remoteUser})}"><button
+										id="addToTable" class="btn btn-primary">
+										Add <i class="fa fa-plus"></i>
+									</button></a>
+							</div>
+						</div>
+					</div>
+					<table class="table table-bordered table-striped mb-none"
+						id="datatable-editable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Importance</th>
+								<th>Days</th>
+								<th>Requested On</th>
+								<th>Status</th>
+								<th>Affect</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="gradeX" th:each="i:${listItems}">
+								<td><span th:text="${i.name}" /></td>
+								<td><span th:text="${i.note}" /></td>
+								<td><span th:text="${i.importance}" /></td>
+								<td><span th:text="${i.days}" /></td>
+								<td><span th:text="${i.requestedOn}" /></td>
+								<td><span th:text="${i.status}" /></td>
+								<td><span th:text="${i.affect}" /></td>
+								<td class="actions"><a href="#"
+									class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+									<a href="#" class="hidden on-editing cancel-row"><i
+										class="fa fa-times"></i></a> <a
+									th:href="@{editItem(idItem=${i.idItem}, projectname=${backlog.projectname}, username=${#httpServletRequest.remoteUser})}"
+									class="on-default edit-row"><i class="fa fa-pencil"></i></a> <a href="#"
+									data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${i.idItem }"
+									class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+									<a href="#" class="on-default remove-row" data-toggle="modal"
+									data-target="#modal-form"
+									th:attr="data-target='#modal-form'+${i.idItem }"><i
+										class="fa fa-eye"></i></a>
+										
+										
+										<!-- Modal -->
+										<div class="modal fade modal-form" tabindex="-1" role="dialog"
+											aria-labelledby="myLargeModalLabel" aria-hidden="true" th:id="modal-form+${i.idItem}">
+											<div class="modal-dialog modal-lg">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<h4 class="modal-title"></h4>
+													</div>
+													<div class="modal-body">
+														<h5 class="text-center">Choix du team</h5>
+														<div class="bootstrap-table">
+															<div class="fixed-table-toolbar"></div>
+															<div class="fixed-table-container">
+																<div class="fixed-table-header">
+																	<table class="table table-hover">
+																		<thead>
+																			<tr>
+									
+																				<th data-field="nom"><div class="th-inner ">Nom</div>
+																					<div class="fht-cell"></div></th>
+																				<th data-field="prenom"><div class="th-inner ">Prenom</div>
+																				<th data-field="prenom"><div class="th-inner ">Email</div>
+																				<th data-field="adresse"><div class="th-inner ">Role</div>
+																				<th data-field="action"><div class="th-inner "></div>
+																		</thead>
+																		<tbody>
+																			<form th:action="@{/AffectItem}" method="get">
+																				<input name="idItem" type="hidden" th:value="${i.idItem}"/>
+																				<input name="projectname" type="hidden" th:value="${backlog.projectname}"/>
+																				<input type="hidden" name="username" th:value="${#httpServletRequest.remoteUser}"/>
+																				<tr th:each="i:${listTeam}">
+									
+																					<td><span th:text="${i.nom}" /></td>
+																					<td><span th:text="${i.prenom}" /></td>
+																					<td><span th:text="${i.email}" /></td>
+																					<td><span th:text="${i.role}" /></td>
+									
+																					<td><input type='submit' name="id" style="background-color:#A9A9A9; color:#A9A9A9;"
+																						class="btn btn-secondary" th:value="${i.id}"></td>
+									
+																				</tr>
+																			</form>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										
+										<!-- Modal -->
+									
+										<div class="modal modal-warning fade in" th:id="modal-warning+${i.idItem}" >
+										    <div class="modal-dialog">
+										        <div class="modal-content">
+										            <div class="modal-header">
+										                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										                    <span aria-hidden="true">&times;</span></button>
+										                <h5 class="modal-title"></h5>
+										            </div>
+										            <div class="modal-body">
+										                <h3>Are you sure want to delete this item?</h3>
+										            </div>
+										            <div class="modal-footer">
+										                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+										                <a type="button" class="btn btn-outline" th:href="@{deleteItem(idItem=${i.idItem}, projectname=${backlog.projectname}, username=${#httpServletRequest.remoteUser} )}"><i class="fa fa-check"></i>&nbsp;Yes</a>
+										            </div>
+										        </div>
+										    </div>
+										</div>
+									
+										</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+		</section>
+	</div>
+
+	
+
+	<div th:include="layout :: copy4">
+		<script th:src="@{assets/vendor/select2/select2.js}"></script>
+		<script
+			th:src="@{assets/vendor/jquery-datatables/media/js/jquery.dataTables.js}"></script>
+		<script
+			th:src="@{assets/vendor/jquery-datatables-bs3/assets/js/datatables.js}"></script>
+		<script
+			th:src="@{assets/javascripts/tables/examples.datatables.editable.js}"></script>
+	</div>
+</body>
+</html>
+
+
